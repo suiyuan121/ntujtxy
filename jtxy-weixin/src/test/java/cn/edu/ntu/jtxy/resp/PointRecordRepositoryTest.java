@@ -1,5 +1,7 @@
 package cn.edu.ntu.jtxy.resp;
 
+import java.util.UUID;
+
 import org.junit.Test;
 
 import cn.edu.ntu.jtxy.BaseTest;
@@ -21,7 +23,7 @@ public class PointRecordRepositoryTest extends BaseTest {
         pointRecordDo.setAmout(10);
         pointRecordDo.setMemo("add");
         pointRecordDo.setOperType(PointRecordDo.OperTypeEnum.ADD.getCode());
-        pointRecordDo.setOrderNo("123412431");
+        pointRecordDo.setOrderNo(UUID.randomUUID().toString());
         pointRecordDo.setPointAcId(1);
         pointRecordDo.setUid("231");
         long ret = resp.add(pointRecordDo);

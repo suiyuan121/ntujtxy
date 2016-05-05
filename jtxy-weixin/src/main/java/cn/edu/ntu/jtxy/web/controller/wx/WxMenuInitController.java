@@ -183,11 +183,18 @@ public class WxMenuInitController {
                     sub_button_3.put("name", "解绑");
                     sub_button_3.put("url", serverUrl + "/unBind.htm?scopeType=full");
                 }
+                JSONObject sub_button_4 = new JSONObject();
+                {
+                    sub_button_3.put("type", "click");
+                    sub_button_3.put("name", "问题反馈");
+                    sub_button_3.put("key", "feedBack");
+                }
 
                 List<JSONObject> sub_buttons = new ArrayList<JSONObject>();
                 sub_buttons.add(sub_button_1);
                 sub_buttons.add(sub_button_2);
                 sub_buttons.add(sub_button_3);
+                sub_buttons.add(sub_button_4);
                 //                sub_buttons.add(sub_button_3);
                 //                sub_buttons.add(sub_button_4);
                 //                sub_buttons.add(sub_button_5);

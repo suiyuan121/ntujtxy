@@ -13,7 +13,7 @@ public class BasePageQueryCond extends BaseModel {
     private static final long serialVersionUID = 67796917675739757L;
 
     /** 当前页 */
-    private int               currentPage;
+    private int               currentPage      = 1;
 
     /** 分页大小 ，默认为10*/
     private int               pageSize         = 10;

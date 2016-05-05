@@ -53,6 +53,7 @@ public class StuInfoController {
 
         PageList<StudentInfoDo> pageList = studentInfoRepository.pageQuery(cond);
 
+        queryStuInfoForm.setCurrentPage(pageList.getCurrentPage());
         map.addAttribute("queryStuInfoForm", queryStuInfoForm);
         logger.info("用户信息 doPost 结果 pageList={}", pageList);
 

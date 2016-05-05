@@ -15,4 +15,26 @@ public interface PointDao {
      * @return
      */
     public long add(PointDo pointDo);
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public PointDo lockById(long id);
+
+    /**
+     * 
+     * @param pointInfo
+     * @return
+     */
+    public boolean update(PointDo pointInfo);
+
+    /**
+     * 
+     * @param uid
+     * @param code
+     * @return
+     */
+    public PointDo getByUidAndType(String uid, String code);
 }

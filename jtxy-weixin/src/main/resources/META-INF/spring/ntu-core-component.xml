@@ -48,5 +48,9 @@
 	<bean id="wxDefaultEventMsgExecutor"
 		class="cn.edu.ntu.jtxy.core.component.wx.MsgExecutor.event.WxDefaultEventMsgExecutor"></bean>
 
+	<!-- 积分 -->
+	<bean id="pointComponent"
+		class="cn.edu.ntu.jtxy.core.component.wx.impl.PointComponentImpl"></bean>
+
 
 </beans>

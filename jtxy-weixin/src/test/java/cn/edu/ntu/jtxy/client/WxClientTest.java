@@ -17,6 +17,8 @@ import org.junit.Test;
 
 import cn.edu.ntu.jtxy.BaseTest;
 import cn.edu.ntu.jtxy.biz.service.client.WxClient;
+import cn.edu.ntu.jtxy.biz.service.client.result.QueryNewsResult;
+import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.RefreshTokenDo;
 import cn.edu.ntu.jtxy.core.repository.wx.RefreshTokenRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.WxAppConfigRepository;
@@ -161,4 +163,20 @@ public class WxClientTest extends BaseTest {
         logger.info("获取微信图文结果  jsResult={} ", j.get("item"));
     }
 
+    @Test
+    public void test_get_news() {
+
+        WxClient wxClient = getContext().getBean(WxClient.class);
+        QueryNewsResult ret = wxClient.getLatestNews(0, 5);
+        logger.info("  xxxx ret={}", ret);
+    }
+
+    @Test
+    public void test_push_news() {
+
+        WxClient wxClient = getContext().getBean(WxClient.class);
+        BaseResult ret = wxClient.pushNews(true, "", "thq_vIRONxYdCRhYmzxZkuqgkAb1oFSr4bdruZ_MTEk");
+
+        logger.info("  xxxx ret={}", ret);
+    }
 }

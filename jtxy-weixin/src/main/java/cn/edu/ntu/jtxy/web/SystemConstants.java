@@ -22,4 +22,6 @@ public interface SystemConstants {
     /**  */
     public static final String PAGE_SESSION    = "page_session";
 
+    public static final int    PAGE_SIZE       = 2;
+
 }

@@ -16,8 +16,8 @@
 	</resultMap>
 
 	<sql id="allColumns">
-		point_ac_id,
 		uid,
+		point_ac_id,
 		oper_type,
 		amout,
 		order_no,

@@ -11,16 +11,28 @@
 
 	<bean id="wxAppConfigRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.WxAppConfigRepositoryImpl" />
+
 	<bean id="refreshTokenRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.RefreshTokenRepositoryImpl" />
+
 	<bean id="userInfoRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.UserInfoRepositoryImpl" />
+
 	<bean id="weiXinUserRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.WeiXinUserRepositoryImpl" />
+
 	<bean id="studentInfoRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.StudentInfoRepositoryImpl" />
+
 	<bean id="pointRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.PointRepositoryImpl" />
+
 	<bean id="pointRecordRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.PointRecordRepositoryImpl" />
+
+	<bean id="newsRepository"
+		class="cn.edu.ntu.jtxy.core.repository.mng.impl.NewsRepositoryImpl" />
+
+	<bean id="daliyQuestionRepository"
+		class="cn.edu.ntu.jtxy.core.repository.mng.impl.DaliyQuestionRepositoryImpl" />
 </beans>

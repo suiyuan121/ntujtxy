@@ -21,6 +21,10 @@ public enum ResultCodeEnum {
 
     移动分组失败("error_move_group", "移动分组失败"),
 
+    用户没有此类积分("user_no_point_type", "用户没有此类积分"),
+
+    用户此类积分不足("user_no_enough_point", "用户此类积分不足"),
+
     //    ..
     ;
 

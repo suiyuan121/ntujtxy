@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.ntu.jtxy.core.dao.mng.NewsDao">
+
+	<resultMap id="RM" type="cn.edu.ntu.jtxy.core.model.mng.NewsDo">
+		<result property="id" column="id" />
+		<result property="media_id" column="media_id" />
+		<result property="title" column="title" />
+		<result property="author" column="author" />
+		<result property="digest" column="digest" />
+		<result property="url" column="url" />
+		<result property="updateTime" column="updateTime" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+	<sql id="allColumnsForInsert">
+		media_id,
+		title,
+		author,
+		digest,
+		url,
+		updateTime,
+		create_time
+	</sql>
+
+	<sql id="allColumnsForSelect">
+		id,
+		media_id,
+		title,
+		author,
+		digest,
+		url,
+		updateTime,
+		create_time
+	</sql>
+
+	<insert id="add" parameterType="cn.edu.ntu.jtxy.core.model.mng.NewsDo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into jt_news (
+		<include refid="allColumnsForInsert"></include>
+		) values
+		(#{media_id},
+		#{title},
+		#{author},
+		#{digest},
+		#{url},
+		#{updateTime},
+		getdate()
+		)
+	</insert>
+
+
+	<select id="pageQueryCount" parameterType="java.util.Map"
+		resultType="int">
+		select count(*)
+		from
+		jt_news
+		where 1=1
+		<if test="title!=null and title!=''">
+			and title like '%'+#{title}+'%'
+		</if>
+	</select>
+
+	<select id="pageQuery" parameterType="java.util.Map" resultType="String">
+		select media_id from(
+		select top ${pageSize}
+		media_id
+		from
+		(
+		select
+		row_number() over(order by
+		create_time desc) as rownumber,*
+		from
+		jt_news
+		where 1=1
+		<if test="title!=null and title!=''">
+			and title like '%'+#{title}+'%'
+		</if>
+		) A
+		where rownumber > #{offset}
+		)B
+		group by media_id
+	</select>
+
+
+	<select id="getByMediaId" resultMap="RM">
+		select
+		<include refid="allColumnsForSelect"></include>
+		from jt_news
+		where media_id = #{mediaId}
+	</select>
+
+</mapper>

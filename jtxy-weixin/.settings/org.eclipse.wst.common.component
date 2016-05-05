@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="java-output-path" value="/jtxy-weixin/target/classes"/>
-        <property name="context-root" value="ntu_jtxy_wx"/>
+        <property name="context-root" value="ntujtxy"/>
     </wb-module>
 </project-modules>

@@ -20,7 +20,8 @@ import cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository;
  */
 public class WxClickEventMsgExecutor extends EventMsgExecutor {
 
-    private static final Logger logger = LoggerFactory.getLogger(WxSubscribeEventMsgExecutor.class);
+    private static final Logger logger  = LoggerFactory
+                                            .getLogger(WxSubscribeEventMsgExecutor.class);
 
     @Autowired
     private UserInfoRepository  userInfoRepository;
@@ -28,13 +29,32 @@ public class WxClickEventMsgExecutor extends EventMsgExecutor {
     @Autowired
     private WeiXinUserComponent weiXinUserComponent;
 
+    /**  */
+    private static String       contact = "如遇到问题，请及时反馈给我  qq：1581128024";
+
     @Override
     public WxMsgResult process(Map<String, String> xmlParams) {
         logger.info("微信点击事件消息处理器   xmlParams={} ", xmlParams);
+        WxMsgResult result = new WxMsgResult();
 
         String openId = xmlParams.get("FromUserName");
+        String eventKey = xmlParams.get("EventKey");
         //不用关心订阅结果
         weiXinUserComponent.subscribe(openId);
+
+        WxEventKeyTypeEnum key = WxEventKeyTypeEnum.getByCode(eventKey);
+
+        switch (key) {
+            case feedBack:
+                result.setContent(contact);
+                result.setWxMsgType(WxMsgTypeEnum.EVENT);
+                result.setWxEventType(WxEventTypeEnum.CLICK);
+                result.setEventKeyType(WxEventKeyTypeEnum.feedBack);
+                return result;
+
+            default:
+                break;
+        }
         return null;
     }
 
@@ -55,7 +75,7 @@ public class WxClickEventMsgExecutor extends EventMsgExecutor {
 
     public static enum WxEventKeyTypeEnum {
 
-        UNBIND("unbind", "解绑");
+        feedBack("feedBack", "问题反馈");
 
         private String code;
 

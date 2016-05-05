@@ -1,13 +1,13 @@
 package cn.edu.ntu.jtxy.biz.service.client.model.wx;
 
-import cn.edu.ntu.jtxy.core.model.BaseResult;
+import cn.edu.ntu.jtxy.core.model.BaseModel;
 
 /**
  * 
  * @author {jin.zhang@witontek.com}
  * @version $Id: NewsInfo.java, v 0.1 2016年4月29日 下午4:18:28 {jin.zhang@witontek.com} Exp $
  */
-public class NewsInfo extends BaseResult {
+public class NewsInfo extends BaseModel {
 
     /**  */
     private static final long serialVersionUID = -6198596532302163614L;
@@ -19,6 +19,16 @@ public class NewsInfo extends BaseResult {
     private String            digest;
 
     private String            url;
+
+    private String            update_time;
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
+    }
 
     /**
      * Getter method for property <tt>title</tt>.

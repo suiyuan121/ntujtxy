@@ -2,7 +2,9 @@ package cn.edu.ntu.jtxy.biz.service.client.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
@@ -24,6 +26,7 @@ import cn.edu.ntu.jtxy.biz.service.client.WxClient;
 import cn.edu.ntu.jtxy.biz.service.client.model.wx.NewsInfo;
 import cn.edu.ntu.jtxy.biz.service.client.model.wx.WxUserInfo;
 import cn.edu.ntu.jtxy.biz.service.client.result.QueryNewsResult;
+import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.AppConfig;
 import cn.edu.ntu.jtxy.core.model.wx.RefreshTokenDo;
 import cn.edu.ntu.jtxy.core.repository.wx.RefreshTokenRepository;
@@ -58,13 +61,16 @@ public class WxClientImpl implements WxClient {
     /** 获取微信图文消息 */
     private static String          GET_LATEST_NEWS_URL      = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=%s";
 
+    /** 群发微信图文消息 */
+    private static String          SEND_NESW_ALL_URL        = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=%s";
+
     /** 延长2个小时 */
     public static int              EXPIRES_IN               = 2;
 
     public static String           SUCCESS_CODE             = "0";
 
     /**  */
-    public static String           TYPE                     = "news";
+    public static String           TYPE_NEWS                = "news";
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
@@ -213,7 +219,7 @@ public class WxClientImpl implements WxClient {
         logger.info("获取最新news offset={},count={] ", offset, count);
 
         QueryNewsResult result = new QueryNewsResult();
-        List<NewsInfo> list = new ArrayList<NewsInfo>();
+        Map<String, List<NewsInfo>> map = new HashMap<String, List<NewsInfo>>();
 
         AppConfig appConfig = wxAppConfigRepository.getDefault();
         if (appConfig == null) {
@@ -232,7 +238,7 @@ public class WxClientImpl implements WxClient {
 
         try {
             JSONObject jsonObj = new JSONObject();
-            jsonObj.put("type", TYPE);
+            jsonObj.put("type", TYPE_NEWS);
             jsonObj.put("offset", offset);
             jsonObj.put("count", count);
 
@@ -254,7 +260,7 @@ public class WxClientImpl implements WxClient {
 
             String errcode = json.optString("errcode");
             String errmsg = json.optString("errmsg");
-            if (StringUtils.isBlank(errcode)) {
+            if (!StringUtils.isBlank(errcode)) {
                 logger.info("获取微信图文结果失败  errcode={}，errmsg={} ", errcode, errmsg);
                 result.setSuccess(false);
                 result.setCode(errcode);
@@ -263,17 +269,21 @@ public class WxClientImpl implements WxClient {
             }
             //获取成功
             JSONArray itemArray = json.getJSONArray("item");
+            int total_count = json.getInt("total_count");
+            int item_count = json.getInt("item_count");
+
             for (int i = 0; i < itemArray.length(); i++) {
 
                 JSONObject itemJson = itemArray.getJSONObject(i);
                 String media_id = itemJson.optString("media_id");
                 String content = itemJson.optString("content");
+                String update_time = itemJson.optString("update_time");
 
                 JSONObject contentJson = new JSONObject(content);
                 JSONArray news_item_array = contentJson.getJSONArray("news_item");
-
+                List<NewsInfo> newslist = new ArrayList<NewsInfo>();
                 for (int j = 0; j < news_item_array.length(); j++) {
-                    JSONObject temp = news_item_array.getJSONObject(i);
+                    JSONObject temp = news_item_array.getJSONObject(j);
                     String title = temp.optString("title");
                     String author = temp.optString("author");
                     String digest = temp.optString("digest");
@@ -284,15 +294,161 @@ public class WxClientImpl implements WxClient {
                     newsInfo.setDigest(digest);
                     newsInfo.setTitle(title);
                     newsInfo.setUrl(url);
-                    list.add(newsInfo);
+                    newsInfo.setUpdate_time(update_time);
+                    newslist.add(newsInfo);
                 }
+                map.put(media_id, newslist);
             }
-            result.setNews(list);
+            result.setNews(map);
+            result.setTotal_count(total_count);
+            result.setItem_count(item_count);
             result.setSuccess(true);
             return result;
         } catch (Exception e) {
             logger.error(String.format("获取微信图文失败   offset=%s,count=%s", offset, count), e);
             result.setSuccess(false);
+            return result;
+        }
+    }
+
+    @Override
+    public BaseResult pushNews(boolean is_to_all, String group_id, String media_id) {
+        logger.info("微信群发图文消息   is_to_all={},group_id={},media_id={}", is_to_all, group_id,
+            media_id);
+        BaseResult result = new BaseResult();
+
+        AppConfig appConfig = wxAppConfigRepository.getDefault();
+        if (appConfig == null) {
+            logger.warn("获取app配置失败");
+            result.setSuccess(false);
+            result.setErrMsg("获取app配置失败");
+            return result;
+        }
+        RefreshTokenDo refreshTokenDo = refreshTokenRepository.getLastRecord(appConfig.getAppId());
+        if (refreshTokenDo == null) {
+            logger.warn("获取本地access_token 失败 refreshTokenDo={}", appConfig.getAppId());
+            result.setSuccess(false);
+            result.setErrMsg("获取token失败");
+            return result;
+        }
+
+        try {
+            JSONObject filter = new JSONObject();
+            filter.put("is_to_all", is_to_all);
+            filter.put("group_id", group_id);
+
+            JSONObject mpnews = new JSONObject();
+            mpnews.put("media_id", media_id);
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("filter", filter);
+            jsonObj.put("mpnews", mpnews);
+            jsonObj.put("msgtype", "mpnews");
+
+            HttpPost httpPost = new HttpPost(String.format(SEND_NESW_ALL_URL,
+                refreshTokenDo.getAccessToken()));
+            logger.info("群发图文  请求参数  jsonObj={}", jsonObj.toString());
+            StringEntity entity = new StringEntity(jsonObj.toString());
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
+            HttpClient client = new DefaultHttpClient();
+            HttpResponse response = client.execute(httpPost);
+
+            HttpEntity entityRet = response.getEntity();
+            @SuppressWarnings("deprecation")
+            String jsResult = EntityUtils.toString(entityRet, HTTP.UTF_8);
+            logger.info("群发微信图文结果  jsResult={} ", jsResult);
+
+            JSONObject json = new JSONObject(jsResult);
+            String errcode = json.optString("errcode");
+            String errmsg = json.optString("errmsg");
+
+            if (!StringUtils.equals(errcode, "0")) {
+                logger.info("群发微信图文结果失败  errcode={}，errmsg={} ", errcode, errmsg);
+                result.setSuccess(false);
+            } else {
+                result.setSuccess(true);
+            }
+            result.setCode(errcode);
+            result.setErrMsg(errmsg);
+            return result;
+        } catch (Exception e) {
+            logger.error(String.format("群发微信图文结果失败   is_to_all=%s,group_id=%s,media_id=%s",
+                is_to_all, group_id, media_id), e);
+            result.setSuccess(false);
+            result.setErrMsg("exception");
+            return result;
+        }
+    }
+
+    /** 
+     * @see cn.edu.ntu.jtxy.biz.service.client.WxClient#pushText(boolean, java.lang.String, java.lang.String)
+     */
+    @Override
+    public BaseResult pushText(boolean is_to_all, String group_id, String content) {
+        logger.info("微信群发文本消息   is_to_all={},group_id={},content={}", is_to_all, group_id, content);
+
+        BaseResult result = new BaseResult();
+        AppConfig appConfig = wxAppConfigRepository.getDefault();
+        if (appConfig == null) {
+            logger.warn("获取app配置失败");
+            result.setSuccess(false);
+            result.setErrMsg("获取app配置失败");
+            return result;
+        }
+        RefreshTokenDo refreshTokenDo = refreshTokenRepository.getLastRecord(appConfig.getAppId());
+        if (refreshTokenDo == null) {
+            logger.warn("获取本地access_token 失败 refreshTokenDo={}", appConfig.getAppId());
+            result.setSuccess(false);
+            result.setErrMsg("获取token失败");
+            return result;
+        }
+
+        try {
+            JSONObject filter = new JSONObject();
+            filter.put("is_to_all", is_to_all);
+            filter.put("group_id", group_id);
+
+            JSONObject text = new JSONObject();
+            text.put("content", content);
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("filter", filter);
+            jsonObj.put("text", text);
+            jsonObj.put("msgtype", "text");
+
+            HttpPost httpPost = new HttpPost(String.format(SEND_NESW_ALL_URL,
+                refreshTokenDo.getAccessToken()));
+            logger.info("群发文本  请求参数  jsonObj={}", jsonObj.toString());
+            StringEntity entity = new StringEntity(jsonObj.toString());
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
+            HttpClient client = new DefaultHttpClient();
+            HttpResponse response = client.execute(httpPost);
+
+            HttpEntity entityRet = response.getEntity();
+            @SuppressWarnings("deprecation")
+            String jsResult = EntityUtils.toString(entityRet, HTTP.UTF_8);
+            logger.info("群发微信文本结果  jsResult={} ", jsResult);
+
+            JSONObject json = new JSONObject(jsResult);
+            String errcode = json.optString("errcode");
+            String errmsg = json.optString("errmsg");
+
+            if (!StringUtils.equals(errcode, "0")) {
+                logger.info("群发微信文本结果失败  errcode={}，errmsg={} ", errcode, errmsg);
+                result.setSuccess(false);
+            } else {
+                result.setSuccess(true);
+            }
+            result.setCode(errcode);
+            result.setErrMsg(errmsg);
+            return result;
+        } catch (Exception e) {
+            logger.error(String.format("群发微信文本结果失败   is_to_all=%s,group_id=%s,content=%s",
+                is_to_all, group_id, content), e);
+            result.setSuccess(false);
+            result.setErrMsg("exception");
             return result;
         }
     }

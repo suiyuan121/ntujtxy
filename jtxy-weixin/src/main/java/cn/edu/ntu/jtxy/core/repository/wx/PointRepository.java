@@ -16,4 +16,28 @@ public interface PointRepository {
      */
     public long add(PointDo pointDo);
 
+    /**
+     * 
+     * @param uid
+     * @param type
+     * @return
+     */
+    public PointDo getByUidAndType(String uid, PointDo.PointTypeEnum poinType);
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public PointDo lockById(long id);
+
+    /**
+     * 
+     * @param uid
+     * @param poinType
+     * @param amount
+     * @return
+     */
+    public boolean update(PointDo pointInfo);
+
 }

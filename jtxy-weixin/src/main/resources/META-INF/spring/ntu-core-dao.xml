@@ -16,4 +16,6 @@
 	<bean id="studentInfofoDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.StudentInfoDaoImpl" />
 	<bean id="pointDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.PointDaoImpl" />
 	<bean id="pointRecordDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.PointRecordDaoImpl" />
+	<bean id="newsDao" class="cn.edu.ntu.jtxy.core.dao.mng.impl.NewsDaoImpl" />
+	<bean id="daliyQuestionDao" class="cn.edu.ntu.jtxy.core.dao.mng.impl.DaliyQuestionDaoImpl" />
 </beans>

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@page import="cn.edu.ntu.jtxy.util.*"%>
 <!DOCTYPE html>
 <html>
@@ -15,8 +16,10 @@
 <link rel="stylesheet" type="text/css" href="css/menu-list.css" />
 
 <!--theme-->
-<link rel="stylesheet" type="text/css" href="css/theme-origin/emng-origin.css" />
-<link rel="stylesheet" type="text/css" href="css/theme-origin/menu-list-origin.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/theme-origin/emng-origin.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/theme-origin/menu-list-origin.css" />
 <style type="text/css">
 html,body {
 	width: 100%;
@@ -153,11 +156,11 @@ nav {
 			<img src="images/emng-logo.png" />
 			<span id="contactPhone"></span>
 			<script type="text/javascript">
-                var phone = document.getElementById("contactPhone");
-                if (phone.innerHTML == '0') {
-                    phone.innerHTML = '';
-                }
-            </script>
+				var phone = document.getElementById("contactPhone");
+				if (phone.innerHTML == '0') {
+					phone.innerHTML = '';
+				}
+			</script>
 		</div>
 		<div id="loginInfo" class="emng-flex">
 			<ul class="emng-flex">
@@ -220,6 +223,25 @@ nav {
 							<li>
 								<a href="newsPush.htm" target="myView">新闻推送</a>
 							</li>
+							<li>
+								<a href="textPush.htm" target="myView">群发文本通知</a>
+							</li>
+						</ul>
+					</li>
+					<li class="menu-out-one">
+						<div class="menu-out-header">
+							<span id="icon-org"></span>
+							<span>
+								<a>每日一题管理</a>
+							</span>
+						</div>
+						<ul class="menu-out-two">
+							<li>
+								<a href="dailyQueInfo.htm" target="myView">查看</a>
+							</li>
+							<li>
+								<a href="dailyQueAddInfo.htm" target="myView">新增</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -227,42 +249,46 @@ nav {
 
 		</section>
 		<section id="iframe-container-1">
-			<iframe src="" name="myView" width="100%" height="100%" frameborder="0"></iframe>
+			<iframe src="" name="myView" width="100%" height="100%"
+				frameborder="0"></iframe>
 		</section>
 	</div>
 </body>
 <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery-ui-1.10.4.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/jquery.mCustomScrollbar.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery-ui-1.10.4.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="js/jquery.mousewheel.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="js/jquery.mCustomScrollbar.min.js" type="text/javascript"
+	charset="utf-8"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        //使菜单下拉或上缩
-        (function() {
-            var aMenuOneLi = $('.menu-one-li');
-            var aMenuTwo = $('.menu-out-two');
-            var aMenuTwoItem = $('.menu-out-two a');
+	$(document).ready(function() {
+		//使菜单下拉或上缩
+		(function() {
+			var aMenuOneLi = $('.menu-one-li');
+			var aMenuTwo = $('.menu-out-two');
+			var aMenuTwoItem = $('.menu-out-two a');
 
-            $('.menu-out-header').each(function(i, e) {
-                $(this).click(function() {
-                    if ($(aMenuTwo[i - 1]).css('display') == 'block') {
-                        $(aMenuTwo[i - 1]).slideUp(300);
-                    } else {
-                        aMenuTwo.slideUp(300);
-                        $(aMenuTwo[i - 1]).slideDown(300);
-                    }
-                    $('.menu-out-header').removeClass('menu-out-header-click');
-                    $(this).addClass('menu-out-header-click');
-                    aMenuTwoItem.removeClass('menu-two-click');
-                });
-            });
+			$('.menu-out-header').each(function(i, e) {
+				$(this).click(function() {
+					if ($(aMenuTwo[i - 1]).css('display') == 'block') {
+						$(aMenuTwo[i - 1]).slideUp(300);
+					} else {
+						aMenuTwo.slideUp(300);
+						$(aMenuTwo[i - 1]).slideDown(300);
+					}
+					$('.menu-out-header').removeClass('menu-out-header-click');
+					$(this).addClass('menu-out-header-click');
+					aMenuTwoItem.removeClass('menu-two-click');
+				});
+			});
 
-            aMenuTwoItem.click(function() {
-                aMenuTwoItem.removeClass('menu-two-click');
-                $(this).addClass('menu-two-click');
-            });
-        })();
-    });
+			aMenuTwoItem.click(function() {
+				aMenuTwoItem.removeClass('menu-two-click');
+				$(this).addClass('menu-two-click');
+			});
+		})();
+	});
 </script>
 </html>
 

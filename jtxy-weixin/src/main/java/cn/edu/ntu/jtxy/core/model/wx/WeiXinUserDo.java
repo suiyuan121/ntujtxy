@@ -218,15 +218,17 @@ public class WeiXinUserDo extends BaseModel {
 
     public static enum GroupIdEnum {
 
-        YEAR_1("106", "大一"),
+        year_12("12", "12届"),
 
-        YEAR_2("107", "大二"),
+        year_13("13", "13届"),
 
-        YEAR_3("108", "大三"),
+        year_14("14", "14届"),
 
-        YEAR_4("109", "大四"),
+        year_15("15", "15届"),
 
-        GRAGUATION("110", "毕业生");
+        year_16("16", "16届"),
+
+        graduation("graduation", "毕业生");
 
         private String code;
 

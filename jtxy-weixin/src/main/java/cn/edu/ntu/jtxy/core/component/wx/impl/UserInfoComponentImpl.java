@@ -128,16 +128,18 @@ public class UserInfoComponentImpl implements UserInfoComponent, SystemConstants
             return null;
         }
         switch (grade) {
-            case YEAR_1:
-                return GroupIdEnum.YEAR_1.getCode();
-            case YEAR_2:
-                return GroupIdEnum.YEAR_2.getCode();
-            case YEAR_3:
-                return GroupIdEnum.YEAR_3.getCode();
-            case YEAR_4:
-                return GroupIdEnum.YEAR_4.getCode();
-            case GRAGUATION:
-                return GroupIdEnum.GRAGUATION.getCode();
+            case year_12:
+                return GroupIdEnum.year_12.getCode();
+            case year_13:
+                return GroupIdEnum.year_13.getCode();
+            case year_14:
+                return GroupIdEnum.year_14.getCode();
+            case year_15:
+                return GroupIdEnum.year_15.getCode();
+            case year_16:
+                return GroupIdEnum.year_16.getCode();
+            case graduation:
+                return GroupIdEnum.graduation.getCode();
             default:
                 return null;
         }

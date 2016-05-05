@@ -153,9 +153,9 @@ public class PointDo extends BaseModel {
 
     public static enum StatusEnum {
 
-        ENABLE("enable", "有效"),
+        ENABLE("E", "有效"),
 
-        DISABLE("disable", "无效");
+        DISABLE("D", "无效");
 
         private String code;
 
@@ -278,4 +278,5 @@ public class PointDo extends BaseModel {
             return null;
         }
     }
+
 }

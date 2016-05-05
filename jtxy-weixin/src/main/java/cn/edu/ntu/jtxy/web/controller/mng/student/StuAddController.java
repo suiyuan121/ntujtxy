@@ -13,6 +13,7 @@ import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.StudentInfoDo;
 import cn.edu.ntu.jtxy.core.repository.ResultCodeEnum;
 import cn.edu.ntu.jtxy.core.repository.wx.StudentInfoRepository;
+import cn.edu.ntu.jtxy.util.StuNoUtil;
 import cn.edu.ntu.jtxy.web.controller.mng.form.AddStuForm;
 
 /**
@@ -63,8 +64,9 @@ public class StuAddController {
         studentInfoDo.setAddress(addStuForm.getHomeAddress());
         studentInfoDo.setSchool("");
         studentInfoDo.setDepartment("");
-        studentInfoDo.setGrade("");
+        studentInfoDo.setGrade(StuNoUtil.getGrade(addStuForm.getStuNo()));
         studentInfoDo.setClassNo("");
+        studentInfoDo.setMemo("add");
         studentInfoDo.setIdNo(addStuForm.getIdNo());
         studentInfoDo.setPhone(addStuForm.getPhoneNum());
         studentInfoDo.setRealName(addStuForm.getStuName());
