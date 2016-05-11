@@ -75,7 +75,7 @@ public class UserInfoRepositoryTest extends BaseTest {
         UserInfoDo userInfoDo = new UserInfoDo();
         userInfoDo.setUid("103040000000011");
         userInfoDo.setOpenId("2016-04-20 16:55:59.577--unBind");
-        boolean ret = resp.updateOpenId(userInfoDo);
+        boolean ret = resp.updateOpenIdAndStatus(userInfoDo);
         logger.info("xxxxxxlist={}", ret);
 
     }

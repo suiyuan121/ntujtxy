@@ -5,8 +5,7 @@ import org.junit.Test;
 import cn.edu.ntu.jtxy.BaseTest;
 import cn.edu.ntu.jtxy.core.model.mng.DailyQuestionDo;
 import cn.edu.ntu.jtxy.core.repository.mng.DaliyQuestionRepository;
-import cn.edu.ntu.jtxy.core.repository.mng.NewsRepository;
-import cn.edu.ntu.jtxy.core.repository.mng.cond.NewsPageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.mng.cond.DaliyQuestionPageQueryCond;
 import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
@@ -36,13 +35,20 @@ public class DaliyQuestionRepositoryTest extends BaseTest {
 
     @Test
     public void test_pageQuery() {
-        NewsRepository resp = getContext().getBean(NewsRepository.class);
+        DaliyQuestionRepository resp = getContext().getBean(DaliyQuestionRepository.class);
 
-        NewsPageQueryCond cond = new NewsPageQueryCond();
+        DaliyQuestionPageQueryCond cond = new DaliyQuestionPageQueryCond();
         cond.setPageSize(5);
         cond.setCurrentPage(1);
-        PageList<String> pageList = resp.pageQuery(cond);
+        PageList<DailyQuestionDo> pageList = resp.pageQuery(cond);
         logger.info("zxxxxpageList={}", pageList);
+    }
+
+    @Test
+    public void test_() {
+        DaliyQuestionRepository resp = getContext().getBean(DaliyQuestionRepository.class);
+        boolean ret = resp.updateLastStatus(DailyQuestionDo.StatusEnum.DISENABLE);
+        logger.info("ret={}", ret);
     }
 
 }

@@ -1,6 +1,8 @@
 package cn.edu.ntu.jtxy.core.dao.wx;
 
 import cn.edu.ntu.jtxy.core.model.wx.PointDo;
+import cn.edu.ntu.jtxy.core.repository.wx.model.PointInfo;
+import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
  * 
@@ -37,4 +39,14 @@ public interface PointDao {
      * @return
      */
     public PointDo getByUidAndType(String uid, String code);
+
+    /**
+     * 
+     * @param pageSize
+     * @param currentPage
+     * @param stuNo
+     * @param stuName
+     * @return
+     */
+    public PageList<PointInfo> pageQuery(int pageSize, int currentPage, String stuNo, String stuName);
 }

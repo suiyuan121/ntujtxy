@@ -59,7 +59,7 @@ public class WxClientTest extends BaseTest {
         RefreshTokenDo refreshTokenDo = resp.getLastRecord(wxesp.getDefault().getAppId());
 
         JSONObject jsonObj1_1 = new JSONObject();
-        jsonObj1_1.put("name", "s");
+        jsonObj1_1.put("name", "graduation");
 
         JSONObject jsonObj1 = new JSONObject();
         jsonObj1.put("group", jsonObj1_1);

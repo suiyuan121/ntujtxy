@@ -9,6 +9,9 @@ import cn.edu.ntu.jtxy.core.dao.wx.PointDao;
 import cn.edu.ntu.jtxy.core.model.wx.PointDo;
 import cn.edu.ntu.jtxy.core.model.wx.PointDo.PointTypeEnum;
 import cn.edu.ntu.jtxy.core.repository.wx.PointRepository;
+import cn.edu.ntu.jtxy.core.repository.wx.cond.PointPageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.wx.model.PointInfo;
+import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
  * 
@@ -22,6 +25,9 @@ public class PointRepositoryImpl implements PointRepository {
     @Autowired
     private PointDao            pointDao;
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.PointRepository#add(cn.edu.ntu.jtxy.core.model.wx.PointDo)
+     */
     @Override
     public long add(PointDo pointDo) {
         logger.info("积分新增 pointDo={}", pointDo);
@@ -31,6 +37,9 @@ public class PointRepositoryImpl implements PointRepository {
         return pointDao.add(pointDo);
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.PointRepository#getByUidAndType(java.lang.String, cn.edu.ntu.jtxy.core.model.wx.PointDo.PointTypeEnum)
+     */
     @Override
     public PointDo getByUidAndType(String uid, PointTypeEnum poinType) {
         logger.info("积分查询   uid={},poinType={}", uid, poinType);
@@ -40,6 +49,9 @@ public class PointRepositoryImpl implements PointRepository {
         return pointDao.getByUidAndType(uid, poinType.getCode());
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.PointRepository#lockById(long)
+     */
     @Override
     public PointDo lockById(long id) {
         logger.info("枷锁  id={}", id);
@@ -49,6 +61,9 @@ public class PointRepositoryImpl implements PointRepository {
         return pointDao.lockById(id);
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.PointRepository#update(cn.edu.ntu.jtxy.core.model.wx.PointDo)
+     */
     @Override
     public boolean update(PointDo pointInfo) {
         logger.info("更新 pointInfo={}", pointInfo);
@@ -56,5 +71,15 @@ public class PointRepositoryImpl implements PointRepository {
             return false;
         }
         return pointDao.update(pointInfo);
+    }
+
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.PointRepository#pageQuery(cn.edu.ntu.jtxy.core.repository.wx.cond.PointPageQueryCond)
+     */
+    @Override
+    public PageList<PointInfo> pageQuery(PointPageQueryCond cond) {
+        logger.info("point 分页查询  cond={}", cond);
+        return pointDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(), cond.getStuNo(),
+            cond.getStuName());
     }
 }

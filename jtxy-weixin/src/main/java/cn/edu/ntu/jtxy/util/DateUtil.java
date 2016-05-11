@@ -23,6 +23,8 @@ public class DateUtil {
 
     public final static String  webFormat   = "yyyy-MM-dd";
 
+    public final static String  monthFormat = "yyyyMM";
+
     public static DateFormat getNewDateFormat(String pattern) {
         DateFormat df = new SimpleDateFormat(pattern);
 
@@ -75,5 +77,13 @@ public class DateUtil {
         DateFormat df = getNewDateFormat(webFormat);
 
         return df.format(new Date());
+    }
+
+    public static String formatMonth(Date date) {
+        if (date == null) {
+            return null;
+        }
+
+        return new SimpleDateFormat(monthFormat).format(date);
     }
 }

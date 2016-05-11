@@ -18,4 +18,6 @@
 	<bean id="pointRecordDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.PointRecordDaoImpl" />
 	<bean id="newsDao" class="cn.edu.ntu.jtxy.core.dao.mng.impl.NewsDaoImpl" />
 	<bean id="daliyQuestionDao" class="cn.edu.ntu.jtxy.core.dao.mng.impl.DaliyQuestionDaoImpl" />
+	<bean id="answerRecordsDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.AnswerRecordsDaoImpl" />
+	<bean id="imagesDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.ImagesDaoImpl" />
 </beans>

@@ -27,6 +27,9 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     @Autowired
     private UserInfoDao         userInfoDao;
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository#getByCond(cn.edu.ntu.jtxy.core.repository.wx.cond.UserInfoCond)
+     */
     @Override
     public List<UserInfoDo> getByCond(UserInfoCond userInfoCond) {
         logger.info("用户查询   userInfoCond={} ", userInfoCond);
@@ -37,6 +40,9 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
             userInfoCond.getStatus() == null ? null : userInfoCond.getStatus().getCode());
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository#add(cn.edu.ntu.jtxy.core.model.wx.UserInfoDo)
+     */
     @Override
     public BaseResult add(UserInfoDo userInfoDo) {
         logger.info("新增用户   UserInfoDo={} ", userInfoDo);
@@ -57,11 +63,17 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
         return result;
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository#getSeq()
+     */
     @Override
     public String getSeq() {
         return String.format(UID_FORMAT, userInfoDao.getSeq() % MAX);
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository#unBindOpenId(java.lang.String)
+     */
     @Override
     public boolean unBindOpenId(String openId) {
         logger.info("用户解绑   openId={}", openId);
@@ -71,12 +83,18 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
         return userInfoDao.unBind(openId);
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository#updateOpenIdAndStatus(cn.edu.ntu.jtxy.core.model.wx.UserInfoDo)
+     */
     @Override
-    public boolean updateOpenId(UserInfoDo userInfoDo) {
+    public boolean updateOpenIdAndStatus(UserInfoDo userInfoDo) {
         logger.info("更新openId   userInfoDo={}", userInfoDo);
-        if (userInfoDo == null) {
+        if (userInfoDo == null || StringUtils.isBlank(userInfoDo.getUid())
+            || StringUtils.isBlank(userInfoDo.getStatus())
+            || StringUtils.isBlank(userInfoDo.getOpenId())) {
             return false;
         }
-        return userInfoDao.updateOpenIdByUid(userInfoDo.getOpenId(), userInfoDo.getUid());
+        return userInfoDao.updateOpenIdAndStatusByUid(userInfoDo.getOpenId(), userInfoDo.getUid(),
+            userInfoDo.getStatus());
     }
 }

@@ -1,6 +1,9 @@
 package cn.edu.ntu.jtxy.core.repository.wx;
 
 import cn.edu.ntu.jtxy.core.model.wx.PointDo;
+import cn.edu.ntu.jtxy.core.repository.wx.cond.PointPageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.wx.model.PointInfo;
+import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
  * 
@@ -39,5 +42,12 @@ public interface PointRepository {
      * @return
      */
     public boolean update(PointDo pointInfo);
+
+    /**
+     * 
+     * @param cond
+     * @return
+     */
+    public PageList<PointInfo> pageQuery(PointPageQueryCond cond);
 
 }

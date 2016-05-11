@@ -14,6 +14,16 @@
 		<result property="modifyTime" column="modify_time" />
 	</resultMap>
 
+	<resultMap id="RM_PAGE_QUERY"
+		type="cn.edu.ntu.jtxy.core.repository.wx.model.PointInfo">
+		<result property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="pointType" column="point_type" />
+		<result property="pointAmout" column="point_amout" />
+		<result property="stuNo" column="stu_no" />
+		<result property="realName" column="real_name" />
+	</resultMap>
+
 	<sql id="allColumns">
 		uid,
 		point_type,
@@ -30,6 +40,14 @@
 		status,
 		create_time,
 		modify_time
+	</sql>
+	<sql id="allColumnsForPageQuery">
+		id,
+		uid,
+		point_type,
+		point_amout,
+		stu_no,
+		real_name
 	</sql>
 
 	<insert id="add" parameterType="cn.edu.ntu.jtxy.core.model.wx.PointDo"
@@ -73,23 +91,35 @@
 	<select id="pageQueryCount" parameterType="java.util.Map"
 		resultType="int">
 		select count(*)
-		from
-		jt_point
+		from jt_point p left join jt_user_info u on p.uid=u.uid
+		<if test="stuNo!=null and stuNo!=''">
+			and stu_no like '%'+#{stuNo}+'%'
+		</if>
+		<if test="stuName!=null and stuName!=''">
+			and real_name like '%'+#{stuName}+'%'
+		</if>
 
 	</select>
 
-	<select id="pageQuery" parameterType="java.util.Map" resultMap="RM">
+	<select id="pageQuery" parameterType="java.util.Map" resultMap="RM_PAGE_QUERY">
 		select top ${pageSize}
-		<include refid="allColumnsForSelect"></include>
+		<include refid="allColumnsForPageQuery"></include>
 		from
 		(
-		select row_number() over(order by create_time) as rownumber,*
-		from
-		jt_point
+		select row_number() over(order by p.point_amout desc) as
+		rownumber,p.*,u.stu_no,u.real_name
+		from jt_point p left join
+		jt_user_info u on p.uid=u.uid
 		where 1=1
+		<if test="stuNo!=null and stuNo!=''">
+			and u.stu_no like '%'+#{stuNo}+'%'
+		</if>
+		<if test="stuName!=null and stuName!=''">
+			and u.real_name like '%'+#{stuName}+'%'
+		</if>
 		) A
-		where rownumber > #{offset}
-
+		where
+		rownumber > #{offset}
 	</select>
 
 </mapper>

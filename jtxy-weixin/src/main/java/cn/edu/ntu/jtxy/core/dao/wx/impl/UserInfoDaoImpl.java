@@ -58,11 +58,12 @@ public class UserInfoDaoImpl extends SqlSessionDaoSupport implements UserInfoDao
     }
 
     @Override
-    public boolean updateOpenIdByUid(String openId, String uid) {
-        logger.info("用户更新  openId={}，uid={}", openId, uid);
+    public boolean updateOpenIdAndStatusByUid(String openId, String uid, String status) {
+        logger.info("用户更新  openId={}，uid={},status={}", openId, uid, status);
         Map<String, String> map = new HashMap<String, String>();
         map.put("openId", openId);
         map.put("uid", uid);
-        return getSqlSession().update(NAMESPACE + ".updateOpenIdByUid", map) == 1;
+        map.put("status", status);
+        return getSqlSession().update(NAMESPACE + ".updateOpenIdAndStatusByUid", map) == 1;
     }
 }

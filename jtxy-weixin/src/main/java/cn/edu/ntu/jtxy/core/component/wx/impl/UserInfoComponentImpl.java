@@ -91,7 +91,7 @@ public class UserInfoComponentImpl implements UserInfoComponent, SystemConstants
             userInfoDo.setOpenId(openId);
             //状态更改为可用状态
             userInfoDo.setStatus(UserInfoDo.StatusEnum.ENABLE.getCode());
-            retBind = userInfoRepository.updateOpenId(userInfoDo);
+            retBind = userInfoRepository.updateOpenIdAndStatus(userInfoDo);
         } else {
             userInfoDo.setIdNo(studentInfoDo.getIdNo());
             userInfoDo.setLoc(studentInfoDo.getAddress());

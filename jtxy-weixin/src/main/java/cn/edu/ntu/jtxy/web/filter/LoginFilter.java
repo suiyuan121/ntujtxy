@@ -33,7 +33,8 @@ public class LoginFilter implements SystemConstants, Filter {
     private List<String>        no_auth_pages = Arrays.asList("/lottery.htm", "/wxOauth.htm",
                                                   "/bind.htm", "/unBind.htm", "/login.htm",
                                                   "/error.htm", "/wxOauth.htm", "/userInfo.htm",
-                                                  "/uploadWorks.htm");
+                                                  "/uploadWorks.htm", "/pointSort.htm",
+                                                  "/daliyQuestionShow.htm", "/worksList.htm");
 
     private static String       error         = "error.htm";
 

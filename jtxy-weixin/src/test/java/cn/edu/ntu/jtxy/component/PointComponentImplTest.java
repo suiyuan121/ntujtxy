@@ -18,7 +18,7 @@ public class PointComponentImplTest extends BaseTest {
     public void test_add() {
         PointComponent comp = getContext().getBean(PointComponent.class);
 
-        PointOperateResult ret = comp.add("103040000000019", 20, PointTypeEnum.SIGN);
+        PointOperateResult ret = comp.add("103040000000024", 20, PointTypeEnum.SIGN);
         logger.info("xxxxxxxxxxret={}", ret);
     }
 

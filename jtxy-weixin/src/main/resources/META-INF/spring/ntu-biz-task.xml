@@ -17,6 +17,7 @@
 			<list>
 				<ref bean="wxAccessTokenRefreshTaskCronTrigger" />
 				<ref bean="newsSyncTaskCronTrigger" />
+				<ref bean="daliyQuestionTaskCronTrigger" />
 			</list>
 		</property>
 		<property name="taskExecutor" ref="executorForTask" />
@@ -69,5 +70,23 @@
 	</bean>
 
 	<bean id="newsSyncTask" class="cn.edu.ntu.jtxy.task.wx.WxNewsSyncTask"></bean>
+	<!-- ====== -->
+
+	<!-- =====每日一题 -->
+	<bean id="daliyQuestionTaskCronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="daliyQuestionTaskJob" />
+		<property name="cronExpression" value="0 0 0 * * ?" />
+
+	</bean>
+
+	<bean id="daliyQuestionTaskJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="daliyQuestionTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="daliyQuestionTask" class="cn.edu.ntu.jtxy.task.wx.DaliyQuestionTask"></bean>
 	<!-- ====== -->
 </beans>

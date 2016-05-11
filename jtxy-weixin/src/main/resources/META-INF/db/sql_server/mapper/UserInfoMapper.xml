@@ -120,11 +120,12 @@
 	]]>
 	</update>
 
-	<update id="updateOpenIdByUid" parameterType="java.util.HashMap">
+	<update id="updateOpenIdAndStatusByUid" parameterType="java.util.HashMap">
 	<![CDATA[ 
 		update jt_user_info
 		set
 		open_id=#{openId},
+		status=#{status},
 		modify_time=getdate()
 		where
 		uid=#{uid}

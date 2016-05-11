@@ -1,0 +1,79 @@
+/* --------------------------------------------------------------------------------------------------------------------------------------------------
+HTML
+-------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+body {margin:0; background:#FFF url("../design/bg.png") 0 0 repeat-x; line-height:20px; font-size:17px; font-family:"helvetica", sans-serif; color:#000;}
+address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, ol, p, table, ul {margin:15px 0;}
+a {color:#000; text-decoration:none;}
+h1 {margin:0; font-size:24px; font-weight:bold;}
+h2 {font-size:20px;}
+h3 {font-size:17px;}
+h4, h5, h6 {font-size:17px; font-weight:bold;}
+ul li {padding-left:17px; background:url("../design/arrow.png") 0 0 no-repeat;}
+ul ul {margin:0; font-size:15px;}
+table {border:2px solid #89CA33;}
+table th {padding:5px; border:1px solid #89CA33; font-weight:bold; text-align:center;}
+table td {padding:5px; border:1px solid #89CA33;}
+img.f-left {margin-right:9px;}
+img.f-right {margin-left:9px;}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------
+LAYOUT
+-------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#wrapper {position:relative; min-height:100%; overflow:auto;}
+#header {position:relative; height:40px; overflow:hidden; padding:0 8px;}
+#header #logo {margin:0; margin-top:10px; text-align:center;}
+#header #info {position:absolute; top:6px; left:8px; margin:0;}  
+#header #info a {display:block; width:28px; height:28px; overflow:hidden; background:url("../design/info.png") 0 0 no-repeat;}
+#header #search {position:absolute; top:6px; right:8px; margin:0;}
+#header #search a {display:block; width:28px; height:28px; margin:0; overflow:hidden; background:url("../design/search.png") 0 0 no-repeat;}
+#content .separator {margin:0; padding:8px; background:url("../design/separator.png"); text-shadow:1px 1px 0px #000; font-size:20px; font-weight:bold; color:#FFF;}
+#content .padding {padding:8px;}
+#content .title {margin:7px 0; font-size:20px;}
+#footer {padding:8px; border-top:1px solid #CCC; color:#777;}
+#footer p {margin:0;}
+#footer a {color:#777;}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------
+PAGE: HOMEPAGE
+-------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+#topstory {position:relative;}
+#topstory img {display:block; width:100%; height:auto;}
+#topstory div {position:absolute; bottom:0; left:0; width:100%;}
+#topstory div h1 {margin:0; padding:8px; background:url("../design/transparent.png") 0 0 repeat-x; font-size:20px; line-height:24px;}
+#topstory div h1 a {text-decoration:none; color:#FFF; text-shadow:1px 1px 0px #000;}
+.list {margin:0;}
+.list li {display:block; padding:8px; border-bottom:1px solid #CCC; background:url("../design/gradient.png") 0 100% repeat-x;}
+.list li .list-img {float:left; width:88px;}
+.list li .list-img img {display:block; width:80px; height:80px;}
+.list li .list-txt {float:left:}
+.list li .list-txt h3 {margin:0; font-weight:bold;}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------
+PAGE: CATEGORY
+-------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.categories {margin:0;}
+.categories li {display:block; padding:8px; border-bottom:1px solid #CCC; background:url("../design/arrow.png") 100% 50% no-repeat;}
+.categories li a {font-weight:bold; text-decoration:none;}
+.categories li:last-child {border:0;}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------
+PAGE: IMAGE GALLERY
+-------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.gallery {margin:15px -9px;}
+.gallery li {display:block; float:left; margin-left:4px; margin-bottom:4px; padding:0; background:none;}
+.gallery li img {display:block;}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------------------
+PORTLET: PAGINATION
+-------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+.pagination {clear:both; margin:25px 0; text-align:center;}
+.pagination a {margin:0 3px; padding:5px 10px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#A9A9A9; text-align:center; text-decoration:none; font-weight:bold; color:#FFF;}
+.pagination strong {margin:0 3px; padding:5px 10px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#C00; text-align:center; color:#FFF;}
+
+.grey {color:#777;}

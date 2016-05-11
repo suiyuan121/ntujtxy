@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.ntu.jtxy.core.dao.wx.AnswerRecordsDao">
+
+	<resultMap id="RM" type="cn.edu.ntu.jtxy.core.model.wx.AnswerRecordsDo">
+		<result property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="questionId" column="question_id" />
+		<result property="result" column="result" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+	<sql id="allColumnsForInsert">
+		uid,
+		question_id,
+		result,
+		create_time
+	</sql>
+
+	<sql id="allColumnsForSelect">
+		id,
+		uid,
+		question_id,
+		result,
+		create_time
+	</sql>
+
+	<insert id="add" parameterType="cn.edu.ntu.jtxy.core.model.wx.AnswerRecordsDo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into jt_answer_record (
+		<include refid="allColumnsForInsert"></include>
+		) values(
+		#{uid},
+		#{questionId},
+		#{result},
+		getdate()
+		)
+	</insert>
+
+	<select id="getByUidAndQuestionId" resultMap="RM" parameterType="java.util.HashMap">
+		select top 1
+		<include refid="allColumnsForSelect"></include>
+		from jt_answer_record
+		where uid=#{uid}
+		and question_id=#{questionId}
+	</select>
+
+
+</mapper>

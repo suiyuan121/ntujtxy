@@ -33,11 +33,14 @@ public class WxMenuInitController {
     /**
     * Logger for this class
     */
-    private static final Logger    logger    = LoggerFactory.getLogger(WxMenuInitController.class);
+    private static final Logger    logger      = LoggerFactory
+                                                   .getLogger(WxMenuInitController.class);
 
-    public static final String     EMPTY_STR = "{}";
+    public static final String     EMPTY_STR   = "{}";
 
-    public static final String     serverUrl = "http://www.ntujtxy.top/ntujtxy";
+    public static final String     serverUrl   = "http://www.ntujtxy.top/ntujtxy";
+
+    private static final String    history_url = "http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzI4NTAzMTg0NQ==#wechat_webview_type=1&wechat_redirect";
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
@@ -112,13 +115,13 @@ public class WxMenuInitController {
                 {
                     sub_button_2.put("type", "view");
                     sub_button_2.put("name", "每日一题");
-                    sub_button_2.put("url", serverUrl + "/daily.htm?scopeType=full");
+                    sub_button_2.put("url", serverUrl + "/daliyQuestionShow.htm?scopeType=full");
                 }
                 JSONObject sub_button_3 = new JSONObject();
                 {
                     sub_button_3.put("type", "view");
                     sub_button_3.put("name", "积分榜");
-                    sub_button_3.put("url", serverUrl + "/points.htm?scopeType=full");
+                    sub_button_3.put("url", serverUrl + "/pointSort.htm");
                 }
 
                 List<JSONObject> sub_buttons = new ArrayList<JSONObject>();
@@ -133,8 +136,8 @@ public class WxMenuInitController {
                 JSONObject sub_button_1 = new JSONObject();
                 {
                     sub_button_1.put("type", "view");
-                    sub_button_1.put("name", "公告");
-                    sub_button_1.put("url", serverUrl + "/advice.htm?scopeType=full");
+                    sub_button_1.put("name", "新闻公告");
+                    sub_button_1.put("url", history_url);
                 }
                 JSONObject sub_button_2 = new JSONObject();
                 {
@@ -185,9 +188,9 @@ public class WxMenuInitController {
                 }
                 JSONObject sub_button_4 = new JSONObject();
                 {
-                    sub_button_3.put("type", "click");
-                    sub_button_3.put("name", "问题反馈");
-                    sub_button_3.put("key", "feedBack");
+                    sub_button_4.put("type", "click");
+                    sub_button_4.put("name", "问题反馈");
+                    sub_button_4.put("key", "feedBack");
                 }
 
                 List<JSONObject> sub_buttons = new ArrayList<JSONObject>();

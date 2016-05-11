@@ -35,4 +35,10 @@
 
 	<bean id="daliyQuestionRepository"
 		class="cn.edu.ntu.jtxy.core.repository.mng.impl.DaliyQuestionRepositoryImpl" />
+
+	<bean id="answerRecordsRepository"
+		class="cn.edu.ntu.jtxy.core.repository.mng.impl.AnswerRecordsRepositoryImpl" />
+
+	<bean id="imagesRepository"
+		class="cn.edu.ntu.jtxy.core.repository.wx.impl.ImagesRepositoryImpl" />
 </beans>

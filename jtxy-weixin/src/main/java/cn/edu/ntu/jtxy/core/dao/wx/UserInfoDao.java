@@ -43,5 +43,5 @@ public interface UserInfoDao {
      * @param userInfoDo
      * @return
      */
-    public boolean updateOpenIdByUid(String openId, String uid);
+    public boolean updateOpenIdAndStatusByUid(String openId, String uid, String status);
 }

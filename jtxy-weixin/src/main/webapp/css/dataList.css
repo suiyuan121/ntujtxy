@@ -1,0 +1,43 @@
+html,body{width: 100%; overflow-x: hidden;}
+body{background: #EDEBE9;}
+
+.moudleWrapper{width: 100%; height: 100%; background: rgba(15,15,15,0.8); z-index: 9; position: fixed; bottom: 0; left: 0;}
+
+.dataRange{width: 100%; height: 0.28rem; padding-top: 20px; position: fixed; top: 0; left: 0; z-index: 7; background: #EDEBE9; box-shadow: 0px 1px 10px rgba(0,0,0,0.6);}
+.dataRange span{font-size: 14px; margin: 0 10px 0;}
+.dataRange input[type=text]{width: 0.4rem; border-radius: 6px; padding-left: 0.015rem; border: none; height: 0.077rem;}
+.dataRange button{border: none; width: 0.26rem; font-family: "黑体"; font-size: 14px; color: #FFFFFF; border-radius: 6px; height: 0.077rem; background: #3EA45A; margin-left: 12px;} 
+.dataRange li{position: relative;}
+.dataRange li .wrapperDate{position: absolute; top: 0; left: 78px; background: rgba(255,255,255,0); width: 0.415rem; height: 0.077rem; z-index: 7;}
+.dataRange li:nth-of-type(2){margin-top: 0.05rem;}
+
+.dataDetail{margin-top: 0.35rem;}
+.dataDetail li{width: 100%; position: relative; height: 0.19rem; background: #FFFFFF; margin-bottom: 3px;}
+.dataDetail span{display: block; line-height: 0.1rem; padding-left: 0.05rem;}
+.dataDetail .health-data{font-weight: bold; font-size: 16px; font-family: "黑体"; color: #5C5C5C;}
+.dataDetail .test-date{color: #A9AAAA;}
+.dataDetail .health-status{position: absolute; right: 0.08rem; top: 0.09rem; font-size: 14px; color: #5C5C5C;}
+
+.dateWrapper{position: fixed; width: 80%; left: 10%; top: 80px; background: #F5F5F5; z-index: 10;}
+.dateWrapper .date-header{width: 100%; height: 60px; border-bottom: 2px solid #39BAE6; text-align: center; line-height: 60px; color: #39BAE6; font-family: "黑体"; font-size: 20px;}
+.dateWrapper .date-body{width: 100%; height: 150px; border-bottom: 1px solid #E6E6E6;}
+.dateWrapper .date-body ul{width: 75%; margin: 30px auto 0;}
+.dateWrapper .date-body li{float: left; width: 30%; text-align: center;}
+.dateWrapper .date-body li:nth-of-type(2){margin: 0 4% 0;}
+.dateWrapper .date-body .plus,.dateWrapper .date-body .reduce{width: 100%; height: 35px; line-height: 35px; background: #E4E4E4; font-weight: bold; font-size: 16px; border: 1px solid #C0C2C1;}
+.dateWrapper .date-body .dateView{width: 100%; height: 45px; line-height: 45px; font-size: 18px;} 
+.dateWrapper .date-footer{width: 100%;}
+.dateWrapper .date-footer ul{width: 100%;}
+.dateWrapper .date-footer li{float: left; width: 50%; text-align: center; box-sizing: border-box; height: 50px; line-height: 50px; font-size: 16px; border-right: 1px solid #E6E6E6;}
+.dateWrapper .date-footer li:nth-of-type(2){border: none;}
+
+#loadingMore{height: 0.12rem; text-align: center; line-height: 0.12rem;}
+#noRecord{width: 100%; text-align: center; height: 0.12rem; line-height: 0.12rem; font-size: 18px;}
+
+/*弹出窗*/
+#window-mask{position: fixed; width: 100%; height: 100%; background: rgba(47,47,47,0.6); top: 0; left: 0; z-index: 8; display: none;}
+#window-alert{position: fixed; width: 280px; height: 105px; background: #FFFFFF; left: 50%; top: 40%; border-radius: 8px; margin-left: -140px; margin-top: -56px; z-index: 9; display: none;}
+#window-alert p{margin: 17px 24px 20px 24px;}
+#window-alert li{float: right; list-style: none; margin-right: 20px;}
+#window-alert button{width: 80px; height: 30px; border: none; border-radius: 5px; text-align: center; font-size: 14px;}
+#btn-confirm{background-color: #3EA45A; color: #FFFFFF; margin-left: 50px;}

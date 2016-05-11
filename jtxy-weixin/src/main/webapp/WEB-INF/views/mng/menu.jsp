@@ -237,10 +237,10 @@ nav {
 						</div>
 						<ul class="menu-out-two">
 							<li>
-								<a href="dailyQueInfo.htm" target="myView">查看</a>
+								<a href="daliyQuestionInfo.htm" target="myView">查看</a>
 							</li>
 							<li>
-								<a href="dailyQueAddInfo.htm" target="myView">新增</a>
+								<a href="daliyQuestionAdd.htm" target="myView">新增</a>
 							</li>
 						</ul>
 					</li>

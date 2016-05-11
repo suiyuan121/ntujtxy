@@ -44,6 +44,6 @@ public interface UserInfoRepository {
      * 
      * @return
      */
-    public boolean updateOpenId(UserInfoDo userInfoDo);
+    public boolean updateOpenIdAndStatus(UserInfoDo userInfoDo);
 
 }

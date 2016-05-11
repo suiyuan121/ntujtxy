@@ -12,6 +12,7 @@ import cn.edu.ntu.jtxy.core.model.wx.StudentInfoDo;
 import cn.edu.ntu.jtxy.core.repository.wx.StudentInfoRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 import cn.edu.ntu.jtxy.core.repository.wx.pagelist.cond.StuInfoPageCond;
+import cn.edu.ntu.jtxy.web.SystemConstants;
 import cn.edu.ntu.jtxy.web.controller.mng.form.QueryStuInfoForm;
 
 /**
@@ -21,13 +22,11 @@ import cn.edu.ntu.jtxy.web.controller.mng.form.QueryStuInfoForm;
  */
 @Controller
 @RequestMapping(value = "stuInfo.htm")
-public class StuInfoController {
+public class StuInfoController implements SystemConstants {
     /**  */
-    private static final Logger   logger    = LoggerFactory.getLogger(StuInfoController.class);
+    private static final Logger   logger = LoggerFactory.getLogger(StuInfoController.class);
 
-    private static final String   page      = "mng/student/stuInfo";
-
-    private static final int      PAGE_SIZE = 2;
+    private static final String   page   = "mng/student/stuInfo";
 
     @Autowired
     private StudentInfoRepository studentInfoRepository;

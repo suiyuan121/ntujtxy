@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>作品上传</title>
 <link rel="stylesheet" href="css/reset.css" />
 <script type="text/javascript">
-    document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth
-            + 'px';
+	document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth
+			+ 'px';
 </script>
 <style type="text/css">
 html,body {
@@ -127,26 +129,26 @@ body {
 </style>
 </head>
 <body>
-	<div class="headerWrap">
-		<!--        <img src="images/logo.png" /> -->
-		<p>作品上传</p>
+	<div class="headerWrap" id="uploadImage">
+		<img src="" id="upPic" />
 	</div>
 	<div class="content">
-		<form action="uploadWorks.htm" name="bindForm" id="bindForm" method="post">
+		<form action="uploadWorks.htm" name="uploadForm" id="uploadForm"
+			method="post" enctype="multipart/form-data">
 			<ul class="list">
 				<li>
-					<label class="input_file" for="stuNo">
-						上传图片：
-						<input type="file" name="stuNo" id="stuNo">
-					</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传图片：
+					<input type="file" name="uploadFile" id="uploadFile">
 				</li>
 				<li>
 					作品名称：
-					<input type="text" name="stuNo" id="" value="" placeholder="请输入作品名称" />
+					<input type="text" name="workName" id="workName" value=""
+						placeholder="请输入作品名称" />
 				</li>
 				<li>
 					作品描述：
-					<input type="text" name="stuNo" id="" value="" placeholder="作品描述" />
+					<input type="text" name="workDesc" id="workDesc" value=""
+						placeholder="作品描述" />
 				</li>
 				<li>
 					<button type="button" class="btn-connect" id="btn-connect">上传</button>
@@ -164,23 +166,31 @@ body {
 </body>
 <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#btn-connect').on('click', function() {
-            if ($('#stuNo').val() == '') {
-                $('.error-msg').html('学号不能为空!');
-                $('#err-hide').html('');
-                return false;
-            } else {
-                $('.error-msg').html('');
-                $('#bindForm').submit();
-            }
-        });
+	$(document).ready(function() {
+		$('#btn-connect').on('click', function() {
+			if ($('#workName').val() == '') {
+				$('.error-msg').html('名字不能为空为空!');
+				$('#err-hide').html('');
+				return false;
+			}
+			if ($('#workDesc').val() == '') {
+				$('.error-msg').html('描述不能为空!');
+				$('#err-hide').html('');
+				return false;
+			} else {
+				$('.error-msg').html('');
+				var imageDiv = '';
 
-        if ($('#err-hide').html() == '解绑成功!') {
-            $('#err-hide').css('color', '#3EA45A');
-        } else {
-            $('#err-hide').css('color', 'red');
-        }
-    });
+				$('#uploadImage').html('imageDiv');
+				$('#uploadForm').submit();
+			}
+		});
+
+		if ($('#err-hide').html() == '上传成功！') {
+			$('#err-hide').css('color', '#3EA45A');
+		} else {
+			$('#err-hide').css('color', 'red');
+		}
+	});
 </script>
 </html>
