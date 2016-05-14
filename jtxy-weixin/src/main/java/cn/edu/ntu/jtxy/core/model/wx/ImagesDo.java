@@ -25,11 +25,21 @@ public class ImagesDo extends BaseModel {
 
     private int               supportsAmount;
 
+    private int               commentAmount;
+
     private String            memo;
 
     private Date              createTime;
 
     private Date              modifyTime;
+
+    public int getCommentAmount() {
+        return commentAmount;
+    }
+
+    public void setCommentAmount(int commentAmount) {
+        this.commentAmount = commentAmount;
+    }
 
     public Date getModifyTime() {
         return modifyTime;

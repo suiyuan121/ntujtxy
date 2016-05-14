@@ -53,6 +53,7 @@ public class PointComponentImpl implements PointComponent {
         }
 
         final PointDo pointDo = pointRepository.getByUidAndType(uid, poinType);
+
         transactionTemplate.execute(new TransactionCallback<PointOperateResult>() {
 
             @Override

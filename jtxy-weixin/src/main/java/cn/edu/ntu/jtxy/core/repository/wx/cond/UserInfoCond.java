@@ -11,11 +11,21 @@ import cn.edu.ntu.jtxy.core.model.wx.UserInfoDo;
 public class UserInfoCond extends BaseModel {
 
     /**  */
-    private static final long     serialVersionUID = -1877134254896085407L;
+    private static final long serialVersionUID = -1877134254896085407L;
 
-    private String                openId;
+    private String            openId;
 
-    private String                stuNo;
+    private String            stuNo;
+
+    private String            uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     private UserInfoDo.StatusEnum status;
 

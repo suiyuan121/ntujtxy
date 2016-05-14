@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -16,28 +17,13 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 
-<link rel="apple-touch-icon"
-	href="http://210.29.65.230/html/haishi_news/06-news/images/icon.png">
-<link rel="apple-touch-startup-image"
-	href="http://210.29.65.230/html/haishi_news/06-news/images/splash.png">
-
 <link rel="stylesheet" media="screen" type="text/css"
 	href="css/works/reset.css">
 <link rel="stylesheet" media="screen" type="text/css"
 	href="css/works/main.css">
-<script type="text/javascript" src="css/works/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="css/works/main.js"></script>
-<script type="text/javascript" src="css/works/url.js"></script>
+<title>优秀作品展示</title>
 
-
-<title></title>
 <style>
-/*#content .separator{
-    text-shadow:none;
-}*/
-/*#h3shadow{
-    text-shadow:none;
-}*/
 #wrapper {
 	border: 3px solid #12C3EC;
 }
@@ -47,247 +33,7 @@
 	
 }
 </style>
-<script type="text/javascript">
-	$(function() {
-
-		// $(".separator").attr("text-shadow"," 1px 1px 0px #F3E4E4");
-	})
-
-	function getJsonObjLength(jsonObj) {
-		var Length = 0;
-		for ( var item in jsonObj) {
-			Length++;
-		}
-		return Length;
-	}
-
-	function li_onclick(event) {
-		// var j=18+event.data.index;
-		// console.log("j:"+j);
-		// this.clickFun=function() {
-
-		window.location.href = "article.html?" + event.data.index;
-		console.log("article.html?" + event.data.index);
-	}
-	// }
-
-	$(
-			function() {
-
-				// var url="http://210.29.65.230:8080";
-				var url = urllazy;
-				var page = 1;
-
-				function showmoreload() {
-
-					page += 1;
-					// console.log(page);
-					$
-							.ajax({
-								type : "POST",
-								url : url + "/qcstyle/title",
-								dataType : "json",
-								crossDomain : true,
-								data : {
-									page : page
-								},
-								success : function(jsonResult) {
-									//var usersnum=getJsonObjLength(jsonResult.users)
-
-									console.log("page:" + page);
-									if (page >= jsonResult.totalpage) {
-										//                       $("#loadmore").text("返回首页");
-										// $("#loadmore").attr('href','#');
-										var num = jsonResult.left;
-
-										for (var i = 0; i < num; i++) {
-											var articlePic = "";
-											var newleft = (page - 1) * 5 + i;
-											var a = newleft - 1;
-											// articlePic="article-"+newleft+".jpg";
-
-											console.log("newleft:" + newleft);
-											console.log(jsonResult.users[i])
-											$("#newend" + a)
-													.after(
-															"<div id=\"colordiv\"><li id="+"newend"+newleft+" class=\"box\"><div  class=\"list-img\"><a ><img src=\"images/"+jsonResult.users[i]["imgurl"]+"\" alt=\"\" /></a></div><div class=\"list-txt\"><h3 ><a id=new"
-																	+ newleft
-																			.toString()
-																	+ ">"
-																	+ jsonResult.users[i].title
-																	+ "</a></h3></div></li></div>");
-
-											// $("#new"+newleft.toString()).attr('href','article.html?'+jsonResult.users[i].id.toString());
-											var lia = '#newend'
-													+ newleft.toString();
-											$(lia).bind('click', {
-												index : jsonResult.users[i].id
-											}, li_onclick)
-
-										}
-
-									}
-									// alert($("#newend").attr("class"));
-									else {//还有数据
-										console.log("还有数据");
-										var newfinnal = "";
-										var articlePic = "";
-										//定义5条
-										for (var i = 0; i < 5; i++) {
-
-											var newendid = (page - 1) * 5 + i;
-											var a = newendid - 1;
-											console.log("newendid:" + newendid);
-											if (newendid < 10) {
-												// articlePic="article-0"+newendid+".jpg";
-												// console.log(articlePic);
-												console
-														.log(jsonResult.users[0])
-												$("#newend" + a)
-														.after(
-																"<div id=\"colordiv\"><li id="+"newend"+newendid+" class=\"box\"><div  class=\"list-img\"><a ><img src=\"images/"+jsonResult.users[i]["imgurl"]+"\" /></a></div><div class=\"list-txt\"><h3 ><a id=new"
-																		+ newendid
-																				.toString()
-																		+ ">"
-																		+ jsonResult.users[i].title
-																		+ "</a></h3></div></li></div>")
-
-												// $("#new"+newendid.toString()).attr('href','article.html?'+jsonResult.users[i].id.toString());
-												var lia = '#newend'
-														+ newendid.toString();
-												$(lia)
-														.bind(
-																'click',
-																{
-																	index : jsonResult.users[i].id
-																}, li_onclick)
-											} else {
-
-												//      articlePic="article-"+newendid+".jpg";
-
-												// console.log(articlePic);
-
-												console
-														.log(jsonResult.users[0])
-												$("#newend" + a)
-														.after(
-																"<div id=\"colordiv\"><li id="+"newend"+newendid+" class=\"box\"><div  class=\"list-img\"><a ><img src=\"images/"+jsonResult.users[i]["imgurl"]+"\"/></a></div><div class=\"list-txt\"><h3 ><a id=new"
-																		+ newendid
-																				.toString()
-																		+ ">"
-																		+ jsonResult.users[i].title
-																		+ "</a></h3></div></li></div>")
-
-												// $("#new"+newendid.toString()).attr('href','article.html?'+jsonResult.users[i].id.toString());
-
-												var lia = '#newend'
-														+ newendid.toString();
-												$(lia)
-														.bind(
-																'click',
-																{
-																	index : jsonResult.users[i].id
-																}, li_onclick)
-
-											}
-
-										}
-									}
-
-								},
-
-								error : function(jqXHR, textStatus) {
-
-								}
-							})
-
-				}
-
-				// console.log("latestnote:"+$("#latestnote").height());
-				//if(parseInt($(window).scrollTop())!=0)
-				//{
-				//alert(" reset");
-				// document.body.scroll(0,0) 
-				//}
-
-				var lazyheight = 0;
-				// console.log(parseInt($(window).scrollTop())==0);
-				// console.log(typeof($(window).scrollTop()));
-
-				$(window).bind(
-						"scroll",
-						function() {
-							// console.log( "winscroll:"+parseFloat($(window).scrollTop()));
-
-							lazyheight = parseFloat($(window).height())
-									+ parseFloat($(window).scrollTop());
-							//获取当前窗体的高度+当前滚动条滚动的距离
-							// console.log("lazyheight:"+lazyheight.toString());
-							// console.log("height:"+($(document).height()-20).toString());
-							if ($(document).height() <= lazyheight) {
-								//当前文档的高度
-								console.log("loadscrolling........");
-
-								//当滚动条滚动时
-								showmoreload();
-							}
-						});
-
-				$
-						.ajax({
-							type : "POST",
-							url : url + "/qcstyle/title",
-							dataType : "json",
-							crossDomain : true,
-							data : {
-								page : "1"
-							},
-							success : function(jsonResult) {
-
-								if (jsonResult.success == "none") {
-									alert("当前没有新闻");
-								} else {
-
-									var usersnum = getJsonObjLength(jsonResult.users)
-									// alert(usersnum);
-									console.log(usersnum);
-									// $("#new0").text("头条"+jsonResult.users[0].title);
-									for (var i = 0; i < usersnum; i++) {
-										// $("#new"+newnum).val();
-										// console.log(jsonResult.users[i].imgurl+jsonResult.users[i].title);
-
-										// var imgurltostr='images/'+jsonResult.users[i].imgurl;
-										// console.log($("#new0"));
-
-										$("#new" + i.toString()).text(
-												jsonResult.users[i].title);
-										$("#firstimg" + i.toString())
-												.attr(
-														'src',
-														'images/'
-																+ jsonResult.users[i].imgurl);
-										// $("#firstimg"+i.toString()).attr('href','article.html?'+jsonResult.users[i].id.toString());
-										// $("#new"+i.toString()).attr('href','article.html?'+jsonResult.users[i].id.toString());
-										// var urlimg=jsonResult.users[i].imgurl;
-										var lia = '#newend' + i.toString();
-										$(lia).bind('click', {
-											index : jsonResult.users[i].id
-										}, li_onclick)
-									}
-
-								}
-
-							},
-							error : function(jqXHR, textStatus) {
-								alert("false");
-							}
-						})
-
-			})
-</script>
-
 </head>
-
 <body>
 	<div id="wrapper">
 		<!-- HEADER -->
@@ -312,53 +58,118 @@
 			</form>
 		</div>
 
-		<!-- CONTENT -->
-		<div id="content" style="background-color:">
+		<ul class="list box">
 			<c:forEach items="${pageList.resultList}" var="item"
 				varStatus="status">
-				<div id="newend0">
-					<div id="topstory">
+				<li class="box" onclick="showContent(${item.id})">
+					<div class="list-img ">
 						<a>
-							<img id="firstimg0" style="height: 200px" src="${item.url}"
-								alt="">
+							<img id="firstimg1" src="${item.url}" alt="">
 						</a>
 					</div>
-				</div>
-
-				<!-- RECENT ARTICLES -->
-				<h3 class="separator"
-					style="background: #5bc0ca; text-shadow: 0px 0px 0px;"
-					id="h3shadow">
-					<!-- #5bc0ca -->
-					最受欢迎作品:
-					<font id="new0" style="color: white; text-shadow: 0px 0px 0px;">${item.workName}:${item.workName}</font>
-				</h3>
-				<ul class="list box">
-					<li class="box" onclick="" id="newend1">
-
-						<div class="list-img ">
-							<a>
-								<img id="firstimg1" src="${item.url}" alt="">
-							</a>
-						</div>
-						<div class="list-txt">
-							<h3>
-								<a id="new1">${item.workName}:${item.workName}</a>
-							</h3>
-						</div>
-					</li>
-				</ul>
+					<div class="list-txt">
+						<h3>
+							<a id="new1">${item.workName}</a>
+							<br>
+						</h3>
+					</div>
+					<div class="list-txt">
+						<h3>
+							<a id="new1">${item.workDesc}</a>
+						</h3>
+					</div>
+					<br>
+					<div class="list-txt">
+						<h3>
+							<a id="new1" style="color: red;">评论(${item.commentAmount})
+								赞(${item.supportsAmount})</a>
+						</h3>
+					</div>
+				</li>
 			</c:forEach>
-
 			<c:choose>
-				<c:when test="${pageList.totalCount == 0}">
-					<p id="noRecord">没有记录...</p>
+				<c:when
+					test="${imagesPageQueryForm.currentPage==imagesPageQueryForm.pageNum||imagesPageQueryForm.pageNum==0}">
+					<p id="noRecord" align="center">没有记录...</p>
 				</c:when>
 				<c:otherwise>
-					<div id="loadingMore">点击加载更多...</div>
+					<div id="loadingMore" align="center">点击加载更多...</div>
 				</c:otherwise>
 			</c:choose>
-		</div>
+		</ul>
 	</div>
 </body>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	var currentPage = $('#currentPage').val();
+	var pageNum = $('#pageNum').val();
+
+	$('#loadingMore').on('click', function() {
+		$(this).html('正在加载...');
+		getList();
+	});
+
+	function getList() {
+		currentPage++;
+
+		if (pageNum < currentPage) {
+			alert("0000");
+			$('#loadingMore').html('没有更多数据了...');
+			$('#loadingMore').off('click');
+			return;
+		}
+		$
+				.ajax({
+					type : "get",
+					url : 'imagesQuery.json' + '?' + 'currentPage='
+							+ currentPage,
+					async : true,
+					success : function(data) {
+						if (data.imagesQueryAjaxResponse.list == null) {
+							$('#loadingMore').html('没有更多数据了...');
+							$('#loadingMore').off('click');
+							return;
+						} else {
+							var Len = data.imagesQueryAjaxResponse.list.length;
+							if (Len < 2) {
+								$('#loadingMore').html('没有更多数据了...');
+								$('#loadingMore').off('click');
+							} else {
+								$('#loadingMore').html('点击加载更多...');
+							}
+							var oLi = '';
+							for (var i = 0; i < Len; i++) {
+								var id = data.imagesQueryAjaxResponse.list[i].id;
+								var url = data.imagesQueryAjaxResponse.list[i].url;
+								var workName = data.imagesQueryAjaxResponse.list[i].workName;
+								var workDesc = data.imagesQueryAjaxResponse.list[i].workDesc;
+								var supportsAmount = data.imagesQueryAjaxResponse.list[i].supportsAmount;
+								var commentAmount = data.imagesQueryAjaxResponse.list[i].commentAmount;
+
+								oLi += ' <li class="box" onclick="showContent('+id+')" id="newend1"><div class="list-img "> <a>'
+										+ '  <img id="firstimg1" src="'+url+'" alt=""> </a></div><div class="list-txt"><h3>'
+										+ ' <a id="new1">'
+										+ workName
+										+ ':'
+										+ workDesc
+										+ '</a></h3></div><div class="list-txt"><h3>'
+										+ ' <a id="new1" style="color: red;">评论('
+										+ commentAmount
+										+ ')'
+										+ '赞('
+										+ supportsAmount
+										+ ')</a></h3></div></li>';
+
+							}
+							$(oLi).insertBefore($('#loadingMore'));
+						}
+					}
+				});
+	};
+
+	function showContent(id) {
+// 		alert(id);
+		location.href = "showWorksContent.htm?id="+id;//location.href实现客户端页面的跳转  
+	};
+</script>
 </html>

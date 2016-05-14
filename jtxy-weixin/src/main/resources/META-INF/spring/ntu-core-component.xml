@@ -52,5 +52,13 @@
 	<bean id="pointComponent"
 		class="cn.edu.ntu.jtxy.core.component.wx.impl.PointComponentImpl"></bean>
 
+	<!-- 中奖 -->
+	<bean id="prizeComponent"
+		class="cn.edu.ntu.jtxy.core.component.wx.impl.PrizeComponentImpl"></bean>
+
+	<!-- 上传作品 -->
+	<bean id="imagesComponent"
+		class="cn.edu.ntu.jtxy.core.component.wx.impl.ImagesComponentImpl"></bean>
+
 
 </beans>

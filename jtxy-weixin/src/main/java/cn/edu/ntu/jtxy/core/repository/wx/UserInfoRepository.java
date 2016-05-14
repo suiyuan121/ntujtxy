@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.UserInfoDo;
+import cn.edu.ntu.jtxy.core.repository.UserInfoFull;
 import cn.edu.ntu.jtxy.core.repository.wx.cond.UserInfoCond;
 
 /**
@@ -45,5 +46,19 @@ public interface UserInfoRepository {
      * @return
      */
     public boolean updateOpenIdAndStatus(UserInfoDo userInfoDo);
+
+    /**
+     * 
+     * @param uid
+     * @return
+     */
+    UserInfoDo getByUid(String uid);
+
+    /**
+     * 
+     * @param cond
+     * @return
+     */
+    List<UserInfoFull> getAllUserInfoByCond(UserInfoCond cond);
 
 }

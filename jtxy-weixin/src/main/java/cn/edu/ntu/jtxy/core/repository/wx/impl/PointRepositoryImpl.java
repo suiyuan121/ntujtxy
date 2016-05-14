@@ -53,7 +53,7 @@ public class PointRepositoryImpl implements PointRepository {
      * @see cn.edu.ntu.jtxy.core.repository.wx.PointRepository#lockById(long)
      */
     @Override
-    public PointDo lockById(long id) {
+    public synchronized PointDo lockById(long id) {
         logger.info("枷锁  id={}", id);
         if (id <= 0) {
             return null;
@@ -81,5 +81,14 @@ public class PointRepositoryImpl implements PointRepository {
         logger.info("point 分页查询  cond={}", cond);
         return pointDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(), cond.getStuNo(),
             cond.getStuName());
+    }
+
+    @Override
+    public int getTotalByUid(String uid) {
+        logger.info("查询全部积分    uid={}", uid);
+        if (StringUtils.isEmpty(uid)) {
+            return 0;
+        }
+        return pointDao.getTotalByUid(uid);
     }
 }

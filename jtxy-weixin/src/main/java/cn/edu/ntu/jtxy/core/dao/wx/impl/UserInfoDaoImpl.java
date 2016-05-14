@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import cn.edu.ntu.jtxy.core.dao.wx.UserInfoDao;
 import cn.edu.ntu.jtxy.core.model.wx.SeqDo;
 import cn.edu.ntu.jtxy.core.model.wx.UserInfoDo;
+import cn.edu.ntu.jtxy.core.repository.UserInfoFull;
 
 /**
  * 
@@ -65,5 +66,22 @@ public class UserInfoDaoImpl extends SqlSessionDaoSupport implements UserInfoDao
         map.put("uid", uid);
         map.put("status", status);
         return getSqlSession().update(NAMESPACE + ".updateOpenIdAndStatusByUid", map) == 1;
+    }
+
+    @Override
+    public UserInfoDo getByUid(String uid) {
+        logger.info("用户查询  uid={}", uid);
+        return getSqlSession().selectOne(NAMESPACE + ".getByUid", uid);
+    }
+
+    /** 
+     * @see cn.edu.ntu.jtxy.core.dao.wx.UserInfoDao#getAllUserInfoByCond(java.lang.String)
+     */
+    @Override
+    public List<UserInfoFull> getAllUserInfoByCond(String uid) {
+        logger.info("查询用户全部信息    uid={}", uid);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("uid", uid);
+        return getSqlSession().selectList("getAllUserInfoByCond", map);
     }
 }

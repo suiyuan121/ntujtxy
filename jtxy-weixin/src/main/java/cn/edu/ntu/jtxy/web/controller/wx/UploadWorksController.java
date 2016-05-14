@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.ntu.jtxy.biz.service.ResourceService;
+import cn.edu.ntu.jtxy.core.component.wx.ImagesComponent;
+import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.ImagesDo;
 import cn.edu.ntu.jtxy.core.repository.wx.ImagesRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository;
@@ -43,6 +46,8 @@ public class UploadWorksController implements SystemConstants {
 
     private static final String  page_upload_works = "uploadWorks";
 
+    private static final String  works_list_htm    = "worksList.htm";
+
     @Autowired
     private WeiXinUserRepository weiXinUserRepository;
 
@@ -51,6 +56,12 @@ public class UploadWorksController implements SystemConstants {
 
     @Autowired
     private ImagesRepository     imagesRepository;
+
+    @Autowired
+    private ResourceService      resourceService;
+
+    @Autowired
+    private ImagesComponent      imagesComponent;
 
     @RequestMapping(method = RequestMethod.GET)
     public String doGet(ModelMap map, HttpServletRequest request) {
@@ -74,7 +85,8 @@ public class UploadWorksController implements SystemConstants {
         //example: uid_{uuid}.jpg
         String savedFileName = uid + "_" + UUID.randomUUID().toString() + fileExtension;
         //文件夹地址
-        String fileLocation = windows_image_path + dateOfMonthString;
+        String imagePath = resourceService.getImagePath().getURL().getPath();
+        String fileLocation = imagePath + dateOfMonthString;
 
         // save it
         long fileSize = writeToFile(uploadFile.getInputStream(), fileLocation, savedFileName,
@@ -87,33 +99,36 @@ public class UploadWorksController implements SystemConstants {
             return page_upload_works;
         }
 
+        String url = fileLocation + File.separatorChar + savedFileName;
         ImagesDo imagesDo = new ImagesDo();
         imagesDo.setType(ImagesDo.TypeEnum.WORK.getCode());
         imagesDo.setUid(uid);
-        imagesDo.setUrl(new File(fileLocation, savedFileName).getAbsolutePath());
+        imagesDo.setUrl(url);
         imagesDo.setWorkDesc(workDesc);
         imagesDo.setWorkName(workName);
         imagesDo.setMemo("add");
-        long id = imagesRepository.add(imagesDo);
-        if (id <= 0) {
+        BaseResult result = imagesComponent.addImage(imagesDo);
+
+        if (!result.isSuccess()) {
+            logger.info("上传作品失败   msg+={}", result.getErrMsg());
             return ERROR_PAGE;
         }
         map.addAttribute("errMsg", "上传成功！");
-        return page_upload_works;
+        return "redirect:/" + works_list_htm;
     }
 
     private long writeToFile(InputStream uploadedInputStream, String fileLocation, String fileName,
                              long maxSize) {
-        logger.info(" fileLocation={},fileName={}", fileLocation, fileName);
+        logger.info(" fileLocation=%s,fileName=%s", fileLocation, fileName);
         long fileSize = 0;
 
         try {
             File file = new File(fileLocation);
+            logger.info("文件是否存在  ={}", file.exists());
             //不存在该文件夹就新建
             if (!file.exists()) {
                 file.mkdir();
             }
-
             int read = 0;
             byte[] bytes = new byte[4096];
 
@@ -129,9 +144,10 @@ public class UploadWorksController implements SystemConstants {
             out.flush();
             out.close();
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            logger.error(
+                String.format("复制文件失败  fileLocation={}，fileName={}", fileLocation, fileName), e);
+            return -2;
         }
         return fileSize;
     }
-
 }

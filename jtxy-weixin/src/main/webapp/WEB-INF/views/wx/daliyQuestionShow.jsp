@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>学号绑定</title>
+<title>每日一答</title>
 <link rel="stylesheet" href="css/reset.css" />
 <link rel="stylesheet" href="css/radioStyle.css" />
 <script type="text/javascript">
@@ -16,6 +16,11 @@
 <style type="text/css">
 html,body {
 	width: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -64,7 +69,7 @@ body {
 }
 
 .content li {
-	
+	margin-left: 0em;
 }
 
 .content li span {
@@ -119,29 +124,33 @@ body {
 	<div class="content">
 		<form action="daliyQuestionShow.htm" name="answerForm" id="answerForm"
 			method="post">
-			<ul class="list">
+			<ul class="list" style="text-align: left;">
 				<li>
 					<input type="radio" id="radio-2-1" name="answer"
-						class="regular-radio big-radio" value="${answers[0]}" />${answers[0]}
+						class="regular-radio big-radio" value="${answers[0]}" />
 					<label for="radio-2-1"></label>
+					<label>${answers[0]}</label>
 					<br />
 				</li>
 				<li>
 					<input type="radio" id="radio-2-2" name="answer"
-						class="regular-radio big-radio" value="${answers[1]}" />${answers[1]}
+						class="regular-radio big-radio" value="${answers[1]}" />
 					<label for="radio-2-2"></label>
+					<label>${answers[1]}</label>
 					<br />
 				</li>
 				<li>
 					<input type="radio" id="radio-2-3" name="answer"
-						class="regular-radio big-radio" value="${answers[2]}" />${answers[2]}
+						class="regular-radio big-radio" value="${answers[2]}" />
 					<label for="radio-2-3"></label>
+					<label>${answers[2]}</label>
 					<br />
 				</li>
 				<li>
 					<input type="radio" id="radio-2-4" name="answer"
-						class="regular-radio big-radio" value="${answers[3]}" />${answers[3]}
+						class="regular-radio big-radio" value="${answers[3]}" />
 					<label for="radio-2-4"></label>
+					<label>${answers[3]}</label>
 					<br />
 				</li>
 			</ul>
@@ -165,10 +174,12 @@ body {
 	$(document).ready(function() {
 		$('#btn-connect').on('click', function() {
 
-			var choice = $("input[name='answer']:checked").val();
-			if (choice == '') {
-				$('.error-msg').html('请选择一个答案选项！');
-				$('#err-hide').html('');
+			var choice = $('input[name="answer"]:checked').val();
+			// 			alert(choice);
+			if (choice == null) {
+				// 				$('.error-msg').html('请选择一个答案选项！');
+				// 				$('#err-hide').html('');
+				alert('请选择一个答案选项！');
 				return false;
 			} else {
 				$('.error-msg').html('');

@@ -38,4 +38,25 @@ public class ImagesRepositoryImpl implements ImagesRepository {
         return imagesDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(), cond.getType(),
             cond.getUid(), cond.getOrderType());
     }
+
+    @Override
+    public ImagesDo getById(int id) {
+        logger.info("图片查询 id={}", id);
+        if (id <= 0) {
+            return null;
+        }
+        return imagesDao.getById(id);
+    }
+
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.ImagesRepository#updateSupportAmountById(int, int)
+     */
+    @Override
+    public int updateSupportAmountById(int imageId) {
+        logger.info("点赞增加   imageId={}", imageId);
+        if (imageId <= 0) {
+            return -1;
+        }
+        return imagesDao.updateSupportAmountById(imageId);
+    }
 }

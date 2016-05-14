@@ -8,25 +8,25 @@ package cn.edu.ntu.jtxy.web;
 public interface SystemConstants {
 
     /** 默认编码字符集 */
-    public static final String DEFAULT_CHARSET    = "utf-8";
+    public static final String DEFAULT_CHARSET = "utf-8";
 
     /**  */
-    public static final String USER_INFO          = "userInfo";
+    public static final String USER_INFO       = "userInfo";
 
     /**  */
-    public static final String UID                = "uid";
+    public static final String UID             = "uid";
 
     /**  */
-    public static final String ERROR_PAGE         = "error";
+    public static final String ERROR_PAGE      = "error";
 
     /**  */
-    public static final String PAGE_SESSION       = "page_session";
+    public static final String PAGE_SESSION    = "page_session";
 
-    public static final int    PAGE_SIZE          = 2;
+    public static final int    PAGE_SIZE       = 2;
 
-    public static final String linux_image_path   = "home/admin123/images/";
+    public static final int    file_size       = 10485760;
 
-    public static final String windows_image_path = "F:\\ntujtxy\\images\\";
+    public static final String SUCCESS         = "success";
 
-    public static final int    file_size          = 10485760;
+    public static final String ERROR           = "error";
 }

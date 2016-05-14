@@ -56,7 +56,8 @@
 			</c:forEach>
 		</ul>
 		<c:choose>
-			<c:when test="${pageList.totalCount == 0}">
+			<c:when
+				test="${pointPageQueryForm.currentPage==pointPageQueryForm.pageNum}">
 				<p id="noRecord">没有记录...</p>
 			</c:when>
 			<c:otherwise>

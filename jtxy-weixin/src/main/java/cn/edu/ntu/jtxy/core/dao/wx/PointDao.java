@@ -49,4 +49,11 @@ public interface PointDao {
      * @return
      */
     public PageList<PointInfo> pageQuery(int pageSize, int currentPage, String stuNo, String stuName);
+
+    /**
+     * 
+     * @param uid
+     * @return
+     */
+    public int getTotalByUid(String uid);
 }

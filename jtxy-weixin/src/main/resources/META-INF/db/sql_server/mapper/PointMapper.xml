@@ -88,6 +88,13 @@
 		where uid=#{uid} and point_type=#{type}
 	</select>
 
+	<select id="getTotalByUid" resultType="int" parameterType="java.util.Map">
+		select
+		SUM(point_amout) from
+		jt_point
+		where uid=#{uid}
+	</select>
+
 	<select id="pageQueryCount" parameterType="java.util.Map"
 		resultType="int">
 		select count(*)

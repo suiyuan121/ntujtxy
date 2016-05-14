@@ -34,6 +34,6 @@ public interface StudentInfoDao {
      * @param phone
      * @return
      */
-    public PageList<StudentInfoDo> pageQuery(int pageSize, int pageNum, String stuNo, String idNo,
-                                             String stuName, String phone);
+    public PageList<StudentInfoDo> pageQuery(int pageSize, int currentPage, String stuNo,
+                                             String idNo, String stuName, String phone);
 }

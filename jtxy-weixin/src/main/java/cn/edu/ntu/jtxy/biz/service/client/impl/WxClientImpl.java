@@ -420,7 +420,8 @@ public class WxClientImpl implements WxClient {
             HttpPost httpPost = new HttpPost(String.format(SEND_NESW_ALL_URL,
                 refreshTokenDo.getAccessToken()));
             logger.info("群发文本  请求参数  jsonObj={}", jsonObj.toString());
-            StringEntity entity = new StringEntity(jsonObj.toString());
+            //发送时加上编码
+            StringEntity entity = new StringEntity(jsonObj.toString(), "UTF-8");
             entity.setContentType("application/json");
             httpPost.setEntity(entity);
             HttpClient client = new DefaultHttpClient();

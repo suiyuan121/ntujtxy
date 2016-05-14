@@ -34,7 +34,8 @@ public class LoginFilter implements SystemConstants, Filter {
                                                   "/bind.htm", "/unBind.htm", "/login.htm",
                                                   "/error.htm", "/wxOauth.htm", "/userInfo.htm",
                                                   "/uploadWorks.htm", "/pointSort.htm",
-                                                  "/daliyQuestionShow.htm", "/worksList.htm");
+                                                  "/daliyQuestionShow.htm", "/worksList.htm",
+                                                  "/showWorksContent.htm");
 
     private static String       error         = "error.htm";
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.edu.ntu.jtxy.biz.service.client.WxClient;
 import cn.edu.ntu.jtxy.core.model.BaseResult;
+import cn.edu.ntu.jtxy.core.model.wx.StudentInfoDo.GradeTypeEnum;
 import cn.edu.ntu.jtxy.core.model.wx.WeiXinUserDo.GroupIdEnum;
 import cn.edu.ntu.jtxy.web.SystemConstants;
 
@@ -44,10 +45,11 @@ public class TextPushController implements SystemConstants {
         } else {
             boolean is_to_all = false;
             //如果all，则群发
-            if (GroupIdEnum.getByCode(year) == null) {
+            if (GradeTypeEnum.getByCode(year) == null) {
                 is_to_all = true;
             }
-            BaseResult result = wxClient.pushText(is_to_all, year, content);
+            String group_id = getGroupId(GradeTypeEnum.getByCode(year));
+            BaseResult result = wxClient.pushText(is_to_all, group_id, content);
             if (result.isSuccess()) {
                 map.addAttribute("msg", "群发成功！");
             } else {
@@ -62,4 +64,25 @@ public class TextPushController implements SystemConstants {
         return page;
     }
 
+    private String getGroupId(GradeTypeEnum grade) {
+        if (grade == null) {
+            return null;
+        }
+        switch (grade) {
+            case year_12:
+                return GroupIdEnum.year_12.getCode();
+            case year_13:
+                return GroupIdEnum.year_13.getCode();
+            case year_14:
+                return GroupIdEnum.year_14.getCode();
+            case year_15:
+                return GroupIdEnum.year_15.getCode();
+            case year_16:
+                return GroupIdEnum.year_16.getCode();
+            case graduation:
+                return GroupIdEnum.graduation.getCode();
+            default:
+                return null;
+        }
+    }
 }

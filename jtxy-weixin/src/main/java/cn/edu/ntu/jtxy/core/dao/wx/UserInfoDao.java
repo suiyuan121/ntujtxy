@@ -3,6 +3,7 @@ package cn.edu.ntu.jtxy.core.dao.wx;
 import java.util.List;
 
 import cn.edu.ntu.jtxy.core.model.wx.UserInfoDo;
+import cn.edu.ntu.jtxy.core.repository.UserInfoFull;
 
 /**
  * 
@@ -44,4 +45,18 @@ public interface UserInfoDao {
      * @return
      */
     public boolean updateOpenIdAndStatusByUid(String openId, String uid, String status);
+
+    /**
+     * 
+     * @param uid
+     * @return
+     */
+    public UserInfoDo getByUid(String uid);
+
+    /**
+     * 
+     * @param uid
+     * @return
+     */
+    public List<UserInfoFull> getAllUserInfoByCond(String uid);
 }

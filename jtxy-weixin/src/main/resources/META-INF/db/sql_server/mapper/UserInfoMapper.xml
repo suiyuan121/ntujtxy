@@ -23,6 +23,28 @@
 		<result property="createTime" column="create_time" />
 		<result property="modifyTime" column="modify_time" />
 	</resultMap>
+	<resultMap id="RM_ALL" type="cn.edu.ntu.jtxy.core.repository.UserInfoFull">
+		<result property="uid" column="uid" />
+		<result property="stuNo" column="stu_no" />
+		<result property="idNo" column="stu_no" />
+		<result property="openId" column="open_id" />
+		<result property="userType" column="user_type" />
+		<result property="nickName" column="nick_name" />
+		<result property="realName" column="real_name" />
+		<result property="pwdSalt" column="pwd_salt" />
+		<result property="pwdHash" column="pwd_hash" />
+		<result property="sex" column="sex" />
+		<result property="phone" column="phone" />
+		<result property="loc" column="loc" />
+		<result property="status" column="status" />
+		<result property="appId" column="app_id" />
+		<result property="headImageUrl" column="head_image_url" />
+		<result property="school" column="school" />
+		<result property="department" column="department" />
+		<result property="grade" column="grade" />
+		<result property="classNo" column="class_no" />
+		<result property="address" column="address" />
+	</resultMap>
 
 	<sql id="allColumnsForInsert">
 		uid,
@@ -61,6 +83,28 @@
 		memo,
 		create_time,
 		modify_time
+	</sql>
+	<sql id="allInfoForSelect">
+		u.uid,
+		u.stu_no,
+		u.id_no,
+		u.open_id,
+		u.user_type,
+		u.nick_name,
+		u.real_name,
+		u.pwd_salt,
+		u.pwd_hash,
+		u.sex,
+		u.phone,
+		u.loc,
+		u.status,
+		w.app_id,
+		w.head_image_url,
+		s.school,
+		s.department,
+		s.grade,
+		s.class_no,
+		s.address
 	</sql>
 
 	<insert id="add" parameterType="cn.edu.ntu.jtxy.core.model.wx.UserInfoDo"
@@ -108,6 +152,14 @@
 		</if>
 	</select>
 
+	<select id="getByUid" resultMap="RM">
+		select
+		<include refid="allColumnsForSelect"></include>
+		from jt_user_info
+		where
+		uid=#{uid}
+	</select>
+
 	<update id="unBindOpenId">
 	<![CDATA[ 
 		update jt_user_info
@@ -131,5 +183,17 @@
 		uid=#{uid}
 	]]>
 	</update>
+
+	<select id="getAllUserInfoByCond" parameterType="java.util.HashMap"
+		resultMap="RM_ALL">
+		select
+		<include refid="allInfoForSelect"></include>
+		from jt_user_info u left join jt_weixin_user w on u.open_id=w.open_id
+		left join jt_student_info s on u.stu_no =s.stu_no
+		where 1=1
+		<if test="uid!=null and uid!=''">
+			and uid=#{uid}
+		</if>
+	</select>
 
 </mapper>

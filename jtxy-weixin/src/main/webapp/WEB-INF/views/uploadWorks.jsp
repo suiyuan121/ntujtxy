@@ -137,7 +137,7 @@ body {
 			method="post" enctype="multipart/form-data">
 			<ul class="list">
 				<li>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传图片：
+					上传图片：
 					<input type="file" name="uploadFile" id="uploadFile">
 				</li>
 				<li>

@@ -62,4 +62,16 @@ public class ImagesDaoImpl extends SqlSessionDaoSupport implements ImagesDao {
 
         return pageList;
     }
+
+    @Override
+    public ImagesDo getById(int id) {
+        logger.info("图片查询  id={}", id);
+        return getSqlSession().selectOne(NAMESPACE + ".getById", id);
+    }
+
+    @Override
+    public int updateSupportAmountById(int imageId) {
+        logger.info("点赞增加   imageId={} ", imageId);
+        return getSqlSession().update(NAMESPACE + ".updateSupportAmountById", imageId);
+    }
 }

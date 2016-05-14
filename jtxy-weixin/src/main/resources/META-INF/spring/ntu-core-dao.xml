@@ -20,4 +20,5 @@
 	<bean id="daliyQuestionDao" class="cn.edu.ntu.jtxy.core.dao.mng.impl.DaliyQuestionDaoImpl" />
 	<bean id="answerRecordsDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.AnswerRecordsDaoImpl" />
 	<bean id="imagesDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.ImagesDaoImpl" />
+	<bean id="priceRecordDao" class="cn.edu.ntu.jtxy.core.dao.wx.impl.PriceRecordDaoImpl" />
 </beans>

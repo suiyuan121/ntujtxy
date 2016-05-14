@@ -67,6 +67,9 @@ nav em {
 	.emng-select .emng-curselect {
 		width: 394px;
 	}
+	p {
+		
+	}
 }
 </style>
 </head>
@@ -83,16 +86,21 @@ nav em {
 		<a href="https://mp.weixin.qq.com" class="emng-btn btn-bg-blue"
 			id="go-back" target="_blank">新建</a>
 	</div>
-	<div class="tab"></div>
-	<script src="js/plugin/jquery-2.1.0.js" type="text/javascript"
-		charset="utf-8"></script>
-	<script src="js/plugin/vertifycate.min.js" type="text/javascript"
-		charset="utf-8"></script>
-	<script src="js/plugin/select-changes.js" type="text/javascript"
-		charset="utf-8"></script>
-	<script src="js/plugin/noty.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/main/org-infoEdit.js" type="text/javascript"
-		charset="utf-8"></script>
-
+	<div align="center">
+		<ul>
+			<li>
+				<p align="left" style="color: red; font-size: medium;">第一步：</p>
+				<img alt="" src="images/explains/1.png">
+			</li>
+			<li>
+				<p align="left" style="color: red; font-size: medium;">第二步：</p>
+				<img alt="" src="images/explains/2.png">
+			</li>
+			<li>
+				<p align="left" style="color: red; font-size: medium;">第三步：</p>
+				<img alt="" src="images/explains/3.png">
+			</li>
+		</ul>
+	</div>
 </body>
 </html>

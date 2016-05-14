@@ -13,5 +13,10 @@
 
 	<bean id="wxClient" class="cn.edu.ntu.jtxy.biz.service.client.impl.WxClientImpl" />
 
+	<!-- ResourceService -->
+	<bean id="resourceService" class="cn.edu.ntu.jtxy.biz.service.impl.ResourceServiceImpl">
+		<property name="imagePath" value="file:${image.path}" />
+	</bean>
+
 
 </beans>

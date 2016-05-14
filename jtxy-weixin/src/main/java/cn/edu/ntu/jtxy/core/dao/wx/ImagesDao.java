@@ -21,4 +21,19 @@ public interface ImagesDao {
     public PageList<ImagesDo> pageQuery(int pageSize, int currentPage, String type, String uid,
                                         String orderType);
 
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public ImagesDo getById(int id);
+
+    /**
+     * 
+     * @param imageId
+     * @param supportAmount
+     * @return
+     */
+    public int updateSupportAmountById(int imageId);
+
 }

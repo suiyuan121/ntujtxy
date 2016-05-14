@@ -72,9 +72,9 @@ public class WorksListController implements SystemConstants {
                 resultList.get(i).setUrl(temp);
             }
         }
-        
-        imagesPageQueryForm.setCurrentPage(pageList.getCurrentPage());
 
+        imagesPageQueryForm.setCurrentPage(pageList.getCurrentPage());
+        imagesPageQueryForm.setPageNum(pageList.getPageNum());
         map.addAttribute("imagesPageQueryForm", imagesPageQueryForm);
         logger.info("作品查询 doPost 结果 pageList={}", pageList);
         map.addAttribute("pageList", pageList);
@@ -105,7 +105,6 @@ public class WorksListController implements SystemConstants {
                 logger.error("", e);
             }
         }
-
         return null;
     }
 }

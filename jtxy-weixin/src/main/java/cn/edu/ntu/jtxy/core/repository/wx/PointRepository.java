@@ -50,4 +50,11 @@ public interface PointRepository {
      */
     public PageList<PointInfo> pageQuery(PointPageQueryCond cond);
 
+    /**
+     * 
+     * @param uid
+     * @return
+     */
+    public int getTotalByUid(String uid);
+
 }

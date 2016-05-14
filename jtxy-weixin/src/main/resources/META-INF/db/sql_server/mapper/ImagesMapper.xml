@@ -12,6 +12,7 @@
 		<result property="workName" column="work_name" />
 		<result property="workDesc" column="work_desc" />
 		<result property="supportsAmount" column="supports_amount" />
+		<result property="commentAmount" column="comment_amount" />
 		<result property="memo" column="memo" />
 		<result property="createTime" column="create_time" />
 		<result property="modifyTime" column="modify_time" />
@@ -25,6 +26,7 @@
 		work_name,
 		work_desc,
 		supports_amount,
+		comment_amount,
 		memo,
 		create_time,
 		modify_time
@@ -37,6 +39,7 @@
 		work_name,
 		work_desc,
 		supports_amount,
+		comment_amount,
 		memo,
 		create_time,
 		modify_time
@@ -53,20 +56,20 @@
 		#{workName},
 		#{workDesc},
 		#{supportsAmount},
+		#{commentAmount},
 		#{memo},
 		getdate(),
 		getdate()
 		)
 	</insert>
 
-
-	<!-- <select id="getByUidAndType" resultMap="RM" parameterType="java.util.Map"> -->
-	<!-- select top 1 -->
-	<!-- <include refid="allColumnsForSelect"></include> -->
-	<!-- from -->
-	<!-- jt_image -->
-	<!-- where uid=#{uid} and point_type=#{type} -->
-	<!-- </select> -->
+	<select id="getById" resultMap="RM">
+		select top 1
+		<include refid="allColumnsForSelect"></include>
+		from
+		jt_image
+		where id=#{id}
+	</select>
 
 	<select id="pageQueryCount" parameterType="java.util.Map"
 		resultType="int">
@@ -93,7 +96,7 @@
 				order by create_time
 			</when>
 			<otherwise>
-				order by supports_amount
+				order by comment_amount,supports_amount
 			</otherwise>
 		</choose>
 		) as rownumber,*
@@ -109,5 +112,12 @@
 		) A
 		where rownumber > #{offset}
 	</select>
+
+	<update id="updateSupportAmountById" parameterType="int">
+		update
+		jt_image
+		set supports_amount=supports_amount+1
+		where id=#{imageId}
+	</update>
 
 </mapper>

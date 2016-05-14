@@ -17,13 +17,15 @@ import org.slf4j.LoggerFactory;
  */
 public class DateUtil {
 
-    private static final Logger logger      = LoggerFactory.getLogger(DateUtil.class);
+    private static final Logger logger         = LoggerFactory.getLogger(DateUtil.class);
 
-    public final static String  shortFormat = "yyyyMMdd";
+    public final static String  shortFormat    = "yyyyMMdd";
 
-    public final static String  webFormat   = "yyyy-MM-dd";
+    public final static String  webFormat      = "yyyy-MM-dd";
 
-    public final static String  monthFormat = "yyyyMM";
+    public final static String  monthFormat    = "yyyyMM";
+
+    public final static String  noSecondFormat = "yyyy-MM-dd HH:mm";
 
     public static DateFormat getNewDateFormat(String pattern) {
         DateFormat df = new SimpleDateFormat(pattern);
@@ -75,15 +77,23 @@ public class DateUtil {
 
     public static String getWebTodayString() {
         DateFormat df = getNewDateFormat(webFormat);
-
         return df.format(new Date());
+    }
+
+    public static String getWebString(Date date) {
+        DateFormat df = getNewDateFormat(webFormat);
+        return df.format(date);
+    }
+
+    public static String getWebStringNoSecond(Date date) {
+        DateFormat df = getNewDateFormat(noSecondFormat);
+        return df.format(date);
     }
 
     public static String formatMonth(Date date) {
         if (date == null) {
             return null;
         }
-
         return new SimpleDateFormat(monthFormat).format(date);
     }
 }

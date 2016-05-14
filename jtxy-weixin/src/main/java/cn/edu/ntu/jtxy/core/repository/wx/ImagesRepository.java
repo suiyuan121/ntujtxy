@@ -20,4 +20,18 @@ public interface ImagesRepository {
      */
     public PageList<ImagesDo> pageQuery(ImagesPageQueryCond cond);
 
+    /**
+     * 
+     * @param id
+     */
+    public ImagesDo getById(int id);
+
+    /**
+     * 
+     * @param imageId
+     * @param supportAmount
+     * @return
+     */
+    public int updateSupportAmountById(int imageId);
+
 }

@@ -41,4 +41,7 @@
 
 	<bean id="imagesRepository"
 		class="cn.edu.ntu.jtxy.core.repository.wx.impl.ImagesRepositoryImpl" />
+
+	<bean id="priceRecordRepository"
+		class="cn.edu.ntu.jtxy.core.repository.wx.impl.PriceRecordRepositoryImpl" />
 </beans>

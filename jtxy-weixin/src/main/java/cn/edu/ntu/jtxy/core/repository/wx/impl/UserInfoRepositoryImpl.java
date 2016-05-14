@@ -12,6 +12,7 @@ import cn.edu.ntu.jtxy.core.dao.wx.UserInfoDao;
 import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.UserInfoDo;
 import cn.edu.ntu.jtxy.core.repository.ResultCodeEnum;
+import cn.edu.ntu.jtxy.core.repository.UserInfoFull;
 import cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.cond.UserInfoCond;
 
@@ -96,5 +97,23 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
         }
         return userInfoDao.updateOpenIdAndStatusByUid(userInfoDo.getOpenId(), userInfoDo.getUid(),
             userInfoDo.getStatus());
+    }
+
+    @Override
+    public UserInfoDo getByUid(String uid) {
+        logger.info("用户查询    uid={} ", uid);
+        if (StringUtils.isBlank(uid)) {
+            return null;
+        }
+        return userInfoDao.getByUid(uid);
+    }
+
+    @Override
+    public List<UserInfoFull> getAllUserInfoByCond(UserInfoCond cond) {
+        logger.info("查询全部用户信息    cond={}  ", cond);
+        if (cond == null) {
+            return null;
+        }
+        return userInfoDao.getAllUserInfoByCond(cond.getUid());
     }
 }

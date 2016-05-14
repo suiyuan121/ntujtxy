@@ -8,6 +8,7 @@ import org.junit.Test;
 import cn.edu.ntu.jtxy.BaseTest;
 import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.UserInfoDo;
+import cn.edu.ntu.jtxy.core.repository.UserInfoFull;
 import cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.cond.UserInfoCond;
 import cn.edu.ntu.jtxy.util.PwdUtils;
@@ -76,6 +77,17 @@ public class UserInfoRepositoryTest extends BaseTest {
         userInfoDo.setUid("103040000000011");
         userInfoDo.setOpenId("2016-04-20 16:55:59.577--unBind");
         boolean ret = resp.updateOpenIdAndStatus(userInfoDo);
+        logger.info("xxxxxxlist={}", ret);
+
+    }
+
+    @Test
+    public void test_getFull() {
+        UserInfoRepository resp = getContext().getBean(UserInfoRepository.class);
+
+        UserInfoCond cond = new UserInfoCond();
+        cond.setUid("103040000000017");
+        List<UserInfoFull> ret = resp.getAllUserInfoByCond(cond);
         logger.info("xxxxxxlist={}", ret);
 
     }

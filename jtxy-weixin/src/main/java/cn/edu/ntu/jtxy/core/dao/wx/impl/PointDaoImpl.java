@@ -86,4 +86,9 @@ public class PointDaoImpl extends SqlSessionDaoSupport implements PointDao {
         return pageList;
     }
 
+    @Override
+    public int getTotalByUid(String uid) {
+        logger.info("查询全部积分   uid={}", uid);
+        return getSqlSession().selectOne(NAMESPACE + ".getTotalByUid", uid);
+    }
 }
