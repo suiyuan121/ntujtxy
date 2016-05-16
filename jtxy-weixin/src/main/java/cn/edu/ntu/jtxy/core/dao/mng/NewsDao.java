@@ -19,7 +19,17 @@ public interface NewsDao {
      * @param title
      * @return
      */
-    public PageList<String> pageQuery(int currentPage, int pagesize, String title);
+    public PageList<String> pageQuery(int currentPage, int pagesize, String title, String type);
+
+    /**
+     * 
+     * @param currentPage
+     * @param pagesize
+     * @param title
+     * @param type
+     * @return
+     */
+    public PageList<NewsDo> pageQueryAll(int currentPage, int pagesize, String title, String type);
 
     /**
      * 
@@ -33,5 +43,12 @@ public interface NewsDao {
      * @return
      */
     public long add(NewsDo newsDo);
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public boolean updateViewCountById(int id);
 
 }

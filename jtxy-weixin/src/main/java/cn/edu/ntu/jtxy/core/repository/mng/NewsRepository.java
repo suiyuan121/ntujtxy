@@ -33,4 +33,18 @@ public interface NewsRepository {
      * @return
      */
     public List<NewsDo> getByMediaId(String mediaId);
+
+    /**
+     * 
+     * @param cond
+     * @return
+     */
+    public PageList<NewsDo> pageQueryAll(NewsPageQueryCond cond);
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public boolean updateViewCountById(int id);
 }

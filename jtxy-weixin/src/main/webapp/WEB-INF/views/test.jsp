@@ -11,6 +11,8 @@
 <body>
 
 	<p onclick="test()">代码测试页面</p>
+	<script src="js/plugin/jquery-2.1.0.js" type="text/javascript"
+		charset="utf-8"></script>
 	<script>
 		function test() {
 
@@ -31,6 +33,16 @@
 					+ ":" + second;
 			alert(s);
 		}
+
+		window.onload = function() {
+
+			var msg = $('#err-hide').html();
+			if (confirm(msg)) {
+				window.opener = null;
+				window.open('', '_self');
+				window.close();
+			}
+		};
 	</script>
 </body>
 

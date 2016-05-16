@@ -6,32 +6,41 @@
 
 	<resultMap id="RM" type="cn.edu.ntu.jtxy.core.model.mng.NewsDo">
 		<result property="id" column="id" />
+		<result property="type" column="type" />
 		<result property="media_id" column="media_id" />
 		<result property="title" column="title" />
 		<result property="author" column="author" />
 		<result property="digest" column="digest" />
 		<result property="url" column="url" />
+		<result property="thumbMediaId" column="thumb_media_id" />
+		<result property="viewCount" column="view_count" />
 		<result property="updateTime" column="updateTime" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
 
 	<sql id="allColumnsForInsert">
+		type,
 		media_id,
 		title,
 		author,
 		digest,
 		url,
+		thumb_media_id,
+		view_count,
 		updateTime,
 		create_time
 	</sql>
 
 	<sql id="allColumnsForSelect">
 		id,
+		type,
 		media_id,
 		title,
 		author,
 		digest,
 		url,
+		thumb_media_id,
+		view_count,
 		updateTime,
 		create_time
 	</sql>
@@ -41,11 +50,14 @@
 		insert into jt_news (
 		<include refid="allColumnsForInsert"></include>
 		) values
-		(#{media_id},
+		(#{type},
+		#{media_id},
 		#{title},
 		#{author},
 		#{digest},
 		#{url},
+		#{thumbMediaId},
+		#{viewCount},
 		#{updateTime},
 		getdate()
 		)
@@ -60,6 +72,9 @@
 		where 1=1
 		<if test="title!=null and title!=''">
 			and title like '%'+#{title}+'%'
+		</if>
+		<if test="type!=null and type!=''">
+			and type =#{type}
 		</if>
 	</select>
 
@@ -78,6 +93,9 @@
 		<if test="title!=null and title!=''">
 			and title like '%'+#{title}+'%'
 		</if>
+		<if test="type!=null and type!=''">
+			and type =#{type}
+		</if>
 		) A
 		where rownumber > #{offset}
 		)B
@@ -92,4 +110,48 @@
 		where media_id = #{mediaId}
 	</select>
 
+	<select id="pageQueryAllCount" parameterType="java.util.Map"
+		resultType="int">
+		select count(*)
+		from
+		jt_news
+		where 1=1
+		<if test="title!=null and title!=''">
+			and title like '%'+#{title}+'%'
+		</if>
+		<if test="type!=null and type!=''">
+			and type =#{type}
+		</if>
+	</select>
+
+	<select id="pageQueryAll" parameterType="java.util.Map"
+		resultMap="RM">
+
+		select top ${pageSize}
+		<include refid="allColumnsForSelect"></include>
+		from
+		(
+		select
+		row_number() over(order by
+		create_time desc) as rownumber,*
+		from
+		jt_news
+		where 1=1
+		<if test="title!=null and title!=''">
+			and title like '%'+#{title}+'%'
+		</if>
+		<if test="type!=null and type!=''">
+			and type =#{type}
+		</if>
+		) A
+		where rownumber > #{offset}
+
+	</select>
+
+	<update id="updateViewCountById">
+		update jt_news
+		set view_count=view_count+1
+		where
+		id=#{id}
+	</update>
 </mapper>

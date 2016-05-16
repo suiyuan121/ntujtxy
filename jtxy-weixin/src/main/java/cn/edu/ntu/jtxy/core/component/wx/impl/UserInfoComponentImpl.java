@@ -54,7 +54,7 @@ public class UserInfoComponentImpl implements UserInfoComponent, SystemConstants
      */
     @Override
     public BindResult bind(WeiXinUserDo weiXinUserDo, StudentInfoDo studentInfoDo) {
-        logger.info("微信号绑定用户     weiXinUserDo={},studentInfoDo={}");
+        logger.info("微信号绑定用户     weiXinUserDo={},studentInfoDo={}", weiXinUserDo, studentInfoDo);
 
         BindResult result = new BindResult();
 

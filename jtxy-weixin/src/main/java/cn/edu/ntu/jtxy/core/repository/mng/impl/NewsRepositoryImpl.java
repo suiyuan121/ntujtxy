@@ -27,7 +27,8 @@ public class NewsRepositoryImpl implements NewsRepository {
         if (cond == null) {
             return null;
         }
-        return newsDao.pageQuery(cond.getCurrentPage(), cond.getPageSize(), cond.getTitle());
+        return newsDao.pageQuery(cond.getCurrentPage(), cond.getPageSize(), cond.getTitle(),
+            cond.getType());
     }
 
     @Override
@@ -54,5 +55,24 @@ public class NewsRepositoryImpl implements NewsRepository {
             return null;
         }
         return newsDao.getByMediaId(mediaId);
+    }
+
+    @Override
+    public PageList<NewsDo> pageQueryAll(NewsPageQueryCond cond) {
+        logger.info("新闻分页查询    cond={}", cond);
+        if (cond == null) {
+            return null;
+        }
+        return newsDao.pageQueryAll(cond.getCurrentPage(), cond.getPageSize(), cond.getTitle(),
+            cond.getType());
+    }
+
+    @Override
+    public boolean updateViewCountById(int id) {
+        logger.info("浏览量增加    id={}", id);
+        if (id <= 0) {
+            return false;
+        }
+        return newsDao.updateViewCountById(id);
     }
 }

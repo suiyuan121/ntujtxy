@@ -130,15 +130,16 @@ body {
 </head>
 <body>
 	<div class="headerWrap" id="uploadImage">
-		<img src="" id="upPic" />
+		<canvas id="canvas"></canvas>
 	</div>
 	<div class="content">
 		<form action="uploadWorks.htm" name="uploadForm" id="uploadForm"
 			method="post" enctype="multipart/form-data">
 			<ul class="list">
 				<li>
-					上传图片：
-					<input type="file" name="uploadFile" id="uploadFile">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="file" name="uploadFile" id="uploadFile"
+						onchange="processFile(this.files[0])">
 				</li>
 				<li>
 					作品名称：
@@ -169,7 +170,7 @@ body {
 	$(document).ready(function() {
 		$('#btn-connect').on('click', function() {
 			if ($('#workName').val() == '') {
-				$('.error-msg').html('名字不能为空为空!');
+				$('.error-msg').html('名字不能为空!');
 				$('#err-hide').html('');
 				return false;
 			}
@@ -179,9 +180,6 @@ body {
 				return false;
 			} else {
 				$('.error-msg').html('');
-				var imageDiv = '';
-
-				$('#uploadImage').html('imageDiv');
 				$('#uploadForm').submit();
 			}
 		});
@@ -192,5 +190,79 @@ body {
 			$('#err-hide').css('color', 'red');
 		}
 	});
+
+	function processFile(file) {
+		if (window.FileReader) {
+			var fr = new FileReader();
+			var reader = new FileReader();
+			var fileType = file.type;
+			var index = fileType.indexOf('/');
+
+			var extName = fileType.substring(index + 1, fileType.length);
+			console.log(extName);
+
+			if (extName != 'jpg' && extName != 'jpeg' && extName != 'png'
+					&& extName != 'bmp' && extName != 'gif') {
+				alert("请上传图片哟！");
+				return;
+			}
+			;
+			reader.onload = function(e) {
+				//alert(e.target.result);
+				$('#canvas')[0].src = e.target.result;
+				read(e.target.result);
+			};
+			reader.readAsDataURL(file);
+
+		} else {
+			alert("Not supported by your browser，上方图片可能无法预览");
+		}
+	}
+
+	function read(DateURl) {
+		var image = new Image();
+		image.onload = function() { //先要绑定load事件
+			resize(image, 300, 300);
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext('2d');
+			canvas.width = image.width;
+			canvas.height = image.height;
+
+			ctx.clearRect(0, 0, image.width, image.height);
+			ctx.drawImage(image, 0, 0, image.width, image.height);
+
+			var file_base64 = canvas.toDataURL('image/jpeg', 0.8);
+		};
+		image.src = DateURl;
+	};
+
+	function resize(image, max_width, max_height) { //图片缩放的函数
+		var Ratio = 1;//图片的缩放比例
+		var w = image.width;
+		var h = image.height;
+
+		//宽度的缩放比例
+		var wRatio = max_width / image.width;
+		//高度的缩放比例
+		var hRatio = max_height / image.height;
+
+		if (max_width == 0 && max_height == 0) { //不缩放
+			Ratio = 1;
+		} else if (max_width == 0) { //缩放高度
+			if (hRatio < 1) {
+				Ratio = hRatio;
+			}
+		} else if (max_height == 0) { //缩放宽度
+			if (wRatio < 1) {
+				Ratio = wRatio;
+			}
+		} else if (wRatio < 1 && hRatio < 1) {
+			Ratio = (wRatio <= hRatio ? wRatio : hRatio);
+		}
+		w = w * Ratio;
+		h = h * Ratio;
+		image.width = w;
+		image.height = h;
+	}
 </script>
 </html>

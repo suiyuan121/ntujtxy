@@ -19,10 +19,12 @@ public class NewsDaoImpl extends SqlSessionDaoSupport implements NewsDao {
     private static final String NAMESPACE = NewsDao.class.getName();
 
     @Override
-    public PageList<String> pageQuery(int currentPage, int pageSize, String title) {
-        logger.info("分页查询新闻  currentPage={},pagesize={},title={}", currentPage, pageSize, title);
+    public PageList<String> pageQuery(int currentPage, int pageSize, String title, String type) {
+        logger.info("分页查询新闻  currentPage={},pagesize={},title={},type={}", currentPage, pageSize,
+            title, type);
         Map<String, String> map = new HashMap<String, String>();
         map.put("title", title);
+        map.put("type", type);
 
         int totalCount = getSqlSession().selectOne(NAMESPACE + ".pageQueryCount", map);
 
@@ -43,7 +45,6 @@ public class NewsDaoImpl extends SqlSessionDaoSupport implements NewsDao {
         pageList.setPageNum(pageNum);
         pageList.setPageSize(pageSize);
         pageList.setTotalCount(totalCount);
-        logger.info("xxxxxxlist={}", list);
         return pageList;
     }
 
@@ -58,5 +59,41 @@ public class NewsDaoImpl extends SqlSessionDaoSupport implements NewsDao {
         logger.info("新闻新增  newsDo={}", newsDo);
         getSqlSession().insert(NAMESPACE + ".add", newsDo);
         return newsDo.getId();
+    }
+
+    @Override
+    public PageList<NewsDo> pageQueryAll(int currentPage, int pageSize, String title, String type) {
+        logger.info("分页查询新闻  currentPage={},pagesize={},title={},type={}", currentPage, pageSize,
+            title, type);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("title", title);
+        map.put("type", type);
+
+        int totalCount = getSqlSession().selectOne(NAMESPACE + ".pageQueryAllCount", map);
+
+        int pageNum = totalCount % pageSize > 0 ? (totalCount / pageSize) + 1
+            : (totalCount / pageSize);
+
+        if (currentPage > pageNum) {
+            //当前页大于总页数，重置到首页
+            currentPage = 1;
+        }
+        map.put("pageSize", String.valueOf(pageSize));
+        map.put("offset", String.valueOf((currentPage - 1) * pageSize));
+
+        List<NewsDo> list = getSqlSession().selectList(NAMESPACE + ".pageQueryAll", map);
+        PageList<NewsDo> pageList = new PageList<NewsDo>();
+        pageList.setResultList(list);
+        pageList.setCurrentPage(currentPage);
+        pageList.setPageNum(pageNum);
+        pageList.setPageSize(pageSize);
+        pageList.setTotalCount(totalCount);
+        return pageList;
+    }
+
+    @Override
+    public boolean updateViewCountById(int id) {
+        logger.info("增加浏览量  id={]", id);
+        return getSqlSession().update(NAMESPACE + ".updateViewCountById", id) == 1;
     }
 }

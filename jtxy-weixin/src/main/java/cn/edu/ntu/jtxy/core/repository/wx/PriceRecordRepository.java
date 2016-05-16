@@ -4,6 +4,8 @@ import java.util.List;
 
 import cn.edu.ntu.jtxy.core.model.wx.PriceRecordDo;
 import cn.edu.ntu.jtxy.core.repository.wx.cond.PriceRecordPageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.wx.cond.PrizePageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.wx.model.PrizeInfo;
 import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
@@ -33,4 +35,11 @@ public interface PriceRecordRepository {
      * @return
      */
     public PageList<PriceRecordDo> pageQuery(PriceRecordPageQueryCond cond);
+
+    /**
+     * 
+     * @param cond
+     * @return
+     */
+    public PageList<PrizeInfo> pageQuery(PrizePageQueryCond cond);
 }

@@ -8,7 +8,7 @@
 		<result property="id" column="id" />
 		<result property="uid" column="uid" />
 		<result property="stuNo" column="stu_no" />
-		<result property="idNo" column="stu_no" />
+		<result property="idNo" column="id_no" />
 		<result property="openId" column="open_id" />
 		<result property="userType" column="user_type" />
 		<result property="nickName" column="nick_name" />
@@ -26,7 +26,7 @@
 	<resultMap id="RM_ALL" type="cn.edu.ntu.jtxy.core.repository.UserInfoFull">
 		<result property="uid" column="uid" />
 		<result property="stuNo" column="stu_no" />
-		<result property="idNo" column="stu_no" />
+		<result property="idNo" column="id_no" />
 		<result property="openId" column="open_id" />
 		<result property="userType" column="user_type" />
 		<result property="nickName" column="nick_name" />

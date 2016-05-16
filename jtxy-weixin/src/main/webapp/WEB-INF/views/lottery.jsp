@@ -121,8 +121,14 @@ body {
 					async : false,
 					success : function(data) {
 						var obj = '<div class="priceRecord"><div class="main_textbg"><div class="main_text"><div style="text-align: center;"><p><b>中奖纪录:</b></p>';
+
+						var count = $('.priceRecord').length;
+
 						if (data.priceRecordsAjaxResponse.list == null) {
 							obj += '</div></div></div></div>';
+							if (count > 0) {
+								$("div").remove(".priceRecord");
+							}
 							$(obj).insertBefore($('#loadingMore'));
 							return;
 						} else {
@@ -138,11 +144,14 @@ body {
 										+ '</p>';
 							}
 							obj += '</div></div></div></div>';
+
+							if (count > 0) {
+								$("div").remove(".priceRecord");
+							}
 							$(obj).insertBefore($('#loadingMore'));
 						}
 					}
 				});
-
 	}
 
 	function formatDate(datetime) {
@@ -391,35 +400,5 @@ body {
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<!--中奖纪录div-->
-	<div id="prize_jl" class="prize" style="display: none;">
-		<div class="main_info">
-			<div class="out">
-				<a onClick="javascript:turnoff('prize_jl')">
-					<img src="images/out.png" width="35" />
-				</a>
-			</div>
-			<div style="height: 10px; width: 100%;"></div>
-			<div class="info_div">
-				<div class="center_div">
-					<img src="images/prize_jl.png" width="60%" />
-				</div>
-
-				<div id="lotteryresult" class="center_div"></div>
-			</div>
-		</div>
-	</div>
-	<div style="width: 100%; height: 10px;"></div>
-	<div class="copyright">
-		<div
-			style="position: relative; width: 80%; margin: 0 auto; text-align: center;">
-			<p style="margin-bottom: 0px;">南通大学交通学院</p>
-		</div>
-		<div style="width: 100%; height: 10px;"></div>
-	</div>
-
-
 	</div>
 </body>

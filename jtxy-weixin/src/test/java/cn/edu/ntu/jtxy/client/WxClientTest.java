@@ -1,6 +1,11 @@
 package cn.edu.ntu.jtxy.client;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+
+import javax.ws.rs.core.MediaType;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -178,5 +183,58 @@ public class WxClientTest extends BaseTest {
         BaseResult ret = wxClient.pushNews(true, "", "thq_vIRONxYdCRhYmzxZkuqgkAb1oFSr4bdruZ_MTEk");
 
         logger.info("  xxxx ret={}", ret);
+    }
+
+    @Test
+    public void test_getMedi() throws JSONException, ClientProtocolException, IOException {
+        String get_pic_news = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=%s";
+        WxAppConfigRepository wxesp = getContext().getBean(WxAppConfigRepository.class);
+
+        RefreshTokenRepository resp = getContext().getBean(RefreshTokenRepository.class);
+        RefreshTokenDo refreshTokenDo = resp.getLastRecord(wxesp.getDefault().getAppId());
+
+        JSONObject jsonObj1 = new JSONObject();
+        jsonObj1.put("media_id", "UJWA6mX24-GHe6OsfTT5ABQK6O0dFnphHnyZUUBmU3c");
+
+        HttpPost httpPost = new HttpPost(String.format(get_pic_news,
+            refreshTokenDo.getAccessToken()));
+
+        StringEntity entity = new StringEntity(jsonObj1.toString());
+        entity.setContentType("application/json");
+        httpPost.setEntity(entity);
+        HttpClient client = new DefaultHttpClient();
+        HttpResponse response = client.execute(httpPost);
+
+        HttpEntity entityRet = response.getEntity();
+        byte ret[] = EntityUtils.toByteArray(entityRet);
+
+        FileOutputStream fileOutputStream = new FileOutputStream(new File("D:/test.png"));
+        fileOutputStream.write(ret);
+        fileOutputStream.close();
+        //        logger.info("获取微信图文结果  jsResult={} ", jsResult);
+    }
+
+    @Test
+    public void test_getMedi_2() throws JSONException, ClientProtocolException, IOException {
+        String get_pic_news = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=%s";
+        WxAppConfigRepository wxesp = getContext().getBean(WxAppConfigRepository.class);
+
+        RefreshTokenRepository resp = getContext().getBean(RefreshTokenRepository.class);
+        RefreshTokenDo refreshTokenDo = resp.getLastRecord(wxesp.getDefault().getAppId());
+
+        JSONObject jsonObj1 = new JSONObject();
+        jsonObj1.put("media_id", "UJWA6mX24-GHe6OsfTT5ABQK6O0dFnphHnyZUUBmU3c");
+
+        Client client = Client.create();
+        WebResource newsR = client.resource(String.format(get_pic_news,
+            refreshTokenDo.getAccessToken()));
+        String restResult = newsR.entity(jsonObj1, MediaType.APPLICATION_JSON)
+            .accept(MediaType.MULTIPART_FORM_DATA_TYPE.getType()).post(String.class);
+
+        FileOutputStream fileOutputStream = new FileOutputStream(new File("D:/test.png"));
+        byte ret[] = restResult.getBytes();
+        fileOutputStream.write(ret);
+        fileOutputStream.close();
+        logger.info(Arrays.toString(ret));
     }
 }

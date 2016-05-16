@@ -14,8 +14,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.edu.ntu.jtxy.core.component.wx.PointComponent;
+import cn.edu.ntu.jtxy.core.component.wx.result.PointOperateResult;
 import cn.edu.ntu.jtxy.core.model.mng.DailyQuestionDo;
 import cn.edu.ntu.jtxy.core.model.wx.AnswerRecordsDo;
+import cn.edu.ntu.jtxy.core.model.wx.PointDo.PointTypeEnum;
 import cn.edu.ntu.jtxy.core.repository.mng.AnswerRecordsRepository;
 import cn.edu.ntu.jtxy.core.repository.mng.DaliyQuestionRepository;
 import cn.edu.ntu.jtxy.web.SystemConstants;
@@ -35,11 +38,16 @@ public class DaliyQuestionShowController implements SystemConstants {
 
     private static final String     page_daliy_question_show = "wx/daliyQuestionShow";
 
+    private static final int        answer_point             = 5;
+
     @Autowired
     private DaliyQuestionRepository daliyQuestionRepository;
 
     @Autowired
     private AnswerRecordsRepository answerRecordsRepository;
+
+    @Autowired
+    private PointComponent          pointComponent;
 
     @RequestMapping(method = RequestMethod.GET)
     public String doGet(ModelMap map) {
@@ -89,7 +97,13 @@ public class DaliyQuestionShowController implements SystemConstants {
 
             if (StringUtils.equals(dailyQuestionDo.getAnswerCorrect(), answer)) {
                 recordsDo.setResult(AnswerRecordsDo.ResultEnum.correct.getCode());
-                map.addAttribute("errMsg", "回答正确！");
+                PointOperateResult result = pointComponent.add(uid, answer_point,
+                    PointTypeEnum.QUESTION);
+                if (result.isSuccess()) {
+                    map.addAttribute("errMsg", "回答正确！");
+                } else {
+                    return ERROR_PAGE;
+                }
             } else {
                 recordsDo.setResult(AnswerRecordsDo.ResultEnum.wrong.getCode());
                 map.addAttribute("errMsg", "回答错误！");

@@ -189,7 +189,7 @@ nav {
 						<div class="menu-out-header">
 							<span id="homepage"></span>
 							<span>
-								<a href="/EHealthMng/welcome.htm" target="myView">首页</a>
+								<a href="#" target="myView">首页</a>
 							</span>
 						</div>
 					</li>
@@ -244,6 +244,32 @@ nav {
 							</li>
 						</ul>
 					</li>
+					<li class="menu-out-one">
+						<div class="menu-out-header">
+							<span id="icon-org"></span>
+							<span>
+								<a>积分管理</a>
+							</span>
+						</div>
+						<ul class="menu-out-two">
+							<li>
+								<a href="pointInfo.htm" target="myView">查看</a>
+							</li>
+						</ul>
+					</li>
+					<!-- 					<li class="menu-out-one"> -->
+					<!-- 						<div class="menu-out-header"> -->
+					<!-- 							<span id="icon-org"></span> -->
+					<!-- 							<span> -->
+					<!-- 								<a>奖品管理</a> -->
+					<!-- 							</span> -->
+					<!-- 						</div> -->
+					<!-- 						<ul class="menu-out-two"> -->
+					<!-- 							<li> -->
+					<!-- 								<a href="prizeInfo.htm" target="myView">查看</a> -->
+					<!-- 							</li> -->
+					<!-- 						</ul> -->
+					<!-- 					</li> -->
 				</ul>
 			</div>
 

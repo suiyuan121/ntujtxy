@@ -11,6 +11,8 @@ import cn.edu.ntu.jtxy.core.dao.wx.PriceRecordDao;
 import cn.edu.ntu.jtxy.core.model.wx.PriceRecordDo;
 import cn.edu.ntu.jtxy.core.repository.wx.PriceRecordRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.cond.PriceRecordPageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.wx.cond.PrizePageQueryCond;
+import cn.edu.ntu.jtxy.core.repository.wx.model.PrizeInfo;
 import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
@@ -53,5 +55,12 @@ public class PriceRecordRepositoryImpl implements PriceRecordRepository {
             return null;
         }
         return priceRecordDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(), cond.getUid());
+    }
+
+    @Override
+    public PageList<PrizeInfo> pageQuery(PrizePageQueryCond cond) {
+        logger.info("奖品纪录分页");
+        
+        return null;
     }
 }

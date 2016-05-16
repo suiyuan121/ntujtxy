@@ -95,7 +95,7 @@
 		currentPage++;
 
 		if (pageNum < currentPage) {
-			alert("0000");
+			// 			alert("0000");
 			$('#loadingMore').html('没有更多数据了...');
 			$('#loadingMore').off('click');
 			return;

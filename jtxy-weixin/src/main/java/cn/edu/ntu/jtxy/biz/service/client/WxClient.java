@@ -1,6 +1,7 @@
 package cn.edu.ntu.jtxy.biz.service.client;
 
 import cn.edu.ntu.jtxy.biz.service.client.model.wx.WxUserInfo;
+import cn.edu.ntu.jtxy.biz.service.client.result.GetImageResult;
 import cn.edu.ntu.jtxy.biz.service.client.result.QueryNewsResult;
 import cn.edu.ntu.jtxy.core.model.BaseResult;
 
@@ -55,5 +56,14 @@ public interface WxClient {
      * @return
      */
     public BaseResult pushText(boolean is_to_all, String group_id, String content);
+
+    /**
+     * 
+     * @param is_to_all
+     * @param group_id
+     * @param content
+     * @return
+     */
+    public GetImageResult getImage(String thumb_media_id);
 
 }

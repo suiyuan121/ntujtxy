@@ -8,11 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import cn.edu.ntu.jtxy.biz.service.client.WxClient;
 import cn.edu.ntu.jtxy.biz.service.client.model.wx.NewsInfo;
+import cn.edu.ntu.jtxy.biz.service.client.result.GetImageResult;
 import cn.edu.ntu.jtxy.biz.service.client.result.QueryNewsResult;
 import cn.edu.ntu.jtxy.core.model.mng.NewsDo;
+import cn.edu.ntu.jtxy.core.model.mng.NewsDo.NewsTypeEnum;
 import cn.edu.ntu.jtxy.core.model.wx.AppConfig;
 import cn.edu.ntu.jtxy.core.repository.mng.NewsRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.RefreshTokenRepository;
@@ -78,18 +81,33 @@ public class WxNewsSyncTask implements Task {
             }
             //增加
             for (NewsInfo news : infos) {
-                NewsDo newsDo = new NewsDo();
-                newsDo.setMedia_id(item);
-                newsDo.setAuthor(news.getAuthor());
-                newsDo.setDigest(news.getDigest());
-                newsDo.setTitle(news.getTitle());
-                newsDo.setUpdateTime(news.getUpdate_time());
-                newsDo.setUrl(news.getUrl());
-                newsRepository.add(newsDo);
+
+                //这里作者表示类型
+                NewsTypeEnum newsTypeEnum = NewsDo.NewsTypeEnum.getByCode(StringUtils
+                    .trimWhitespace(news.getAuthor()));
+
+                String thumb_media_id = news.getThumb_media_id();
+                GetImageResult imageResult = wxClient.getImage(thumb_media_id);
+
+                if (imageResult.isSuccess()) {
+
+                    NewsDo newsDo = new NewsDo();
+                    newsDo.setMedia_id(item);
+                    newsDo.setAuthor(news.getAuthor());
+                    newsDo.setDigest(news.getDigest());
+                    newsDo.setTitle(news.getTitle());
+                    newsDo.setUpdateTime(news.getUpdate_time());
+                    newsDo.setUrl(news.getUrl());
+                    newsDo.setThumbMediaId(imageResult.getImagePath());
+                    newsDo.setType(newsTypeEnum == null ? NewsDo.NewsTypeEnum.其他种类.getCode()
+                        : newsTypeEnum.getCode());
+                    newsRepository.add(newsDo);
+                } else {
+                    logger.info("微信图文同步出错  imageResult={}   ", imageResult);
+                }
             }
 
         }
         logger.info("微信图文同步   end.......");
     }
-
 }

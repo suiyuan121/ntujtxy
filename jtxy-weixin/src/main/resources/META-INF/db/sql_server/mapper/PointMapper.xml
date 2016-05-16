@@ -117,7 +117,7 @@
 		rownumber,p.*,u.stu_no,u.real_name
 		from jt_point p left join
 		jt_user_info u on p.uid=u.uid
-		where 1=1
+		where point_type='sign'
 		<if test="stuNo!=null and stuNo!=''">
 			and u.stu_no like '%'+#{stuNo}+'%'
 		</if>

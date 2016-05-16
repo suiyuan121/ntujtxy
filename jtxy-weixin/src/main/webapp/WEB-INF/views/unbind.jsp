@@ -6,9 +6,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>每日一答</title>
+<title>学号解绑</title>
 <link rel="stylesheet" href="css/reset.css" />
-<link rel="stylesheet" href="css/radioStyle.css" />
 <script type="text/javascript">
 	document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth
 			+ 'px';
@@ -18,18 +17,13 @@ html,body {
 	width: 100%;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
 body {
 	background: #EDEBE9;
 }
 
 .headerWrap {
 	width: 100%;
-	height: 0.54rem;
+	height: 0.84rem;
 	background: #FEFEFE;
 	text-align: center;
 	position: relative;
@@ -69,7 +63,7 @@ body {
 }
 
 .content li {
-	margin-left: 0em;
+	
 }
 
 .content li span {
@@ -119,47 +113,12 @@ body {
 </head>
 <body>
 	<div class="headerWrap">
-		<p>今日问题：</p>
-		<br>
-		<p>${dailyQuestionDo.content}</p>
+		<img src="images/logo.png" />
+		<p>交通学院微信平台是南通大学交通学院对外发布信息的平台</p>
 	</div>
 	<div class="content">
-		<form action="daliyQuestionShow.htm" name="answerForm" id="answerForm"
-			method="post">
-			<ul class="list" style="text-align: left;">
-				<li>
-					<input type="radio" id="radio-2-1" name="answer"
-						class="regular-radio big-radio" value="${answers[0]}" />
-					<label for="radio-2-1"></label>
-					<label>${answers[0]}</label>
-					<br />
-				</li>
-				<li>
-					<input type="radio" id="radio-2-2" name="answer"
-						class="regular-radio big-radio" value="${answers[1]}" />
-					<label for="radio-2-2"></label>
-					<label>${answers[1]}</label>
-					<br />
-				</li>
-				<li>
-					<input type="radio" id="radio-2-3" name="answer"
-						class="regular-radio big-radio" value="${answers[2]}" />
-					<label for="radio-2-3"></label>
-					<label>${answers[2]}</label>
-					<br />
-				</li>
-				<li>
-					<input type="radio" id="radio-2-4" name="answer"
-						class="regular-radio big-radio" value="${answers[3]}" />
-					<label for="radio-2-4"></label>
-					<label>${answers[3]}</label>
-					<br />
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<button type="button" class="btn-connect" id="btn-connect">提交</button>
-				</li>
+		<form action="bind.htm" name="bindForm" id="bindForm" method="post">
+			<ul class="list">
 				<li>
 					<span class="error-msg"></span>
 				</li>
@@ -168,26 +127,16 @@ body {
 				</li>
 			</ul>
 		</form>
-
 	</div>
 </body>
 <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#btn-connect').on('click', function() {
-			var choice = $('input[name="answer"]:checked').val();
-			if (choice == null) {
-				alert('请选择一个答案选项！');
-				return false;
-			} else {
-				$('.error-msg').html('');
-				$('#answerForm').submit();
-			}
-		});
 		var msg = $('#err-hide').html();
-		if (msg != '') {
-			alert(msg);
-			return;
+		if (confirm(msg)) {
+			window.opener = null;
+			window.open('', '_self');
+			window.close();
 		}
 	});
 </script>

@@ -123,7 +123,8 @@ public class WxOauthController implements SystemConstants {
                 weiXinUserDo.setNickName(wxUserInfo.getNickName());
                 weiXinUserDo.setHeadImageUrl(wxUserInfo.getHeadImageUrl());
                 weiXinUserDo.setProps(wxUserInfo.getProps());
-                weiXinUserDo.setSubscribe(WeiXinUserDo.SubscribeEnum.N.getCode());
+                //微信参数中不带是否关注，所以暂且默认关注
+                weiXinUserDo.setSubscribe(WeiXinUserDo.SubscribeEnum.Y.getCode());
                 long ret = weiXinUserRepository.add(weiXinUserDo);
                 if (ret <= 0) {
                     logger.warn("增加微信用户失败   weiXinUserDo={}", weiXinUserDo);

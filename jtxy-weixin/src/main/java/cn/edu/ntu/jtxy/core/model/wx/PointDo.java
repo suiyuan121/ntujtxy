@@ -219,9 +219,11 @@ public class PointDo extends BaseModel {
 
         SIGN("sign", "签到积分"),
 
-        PRIZE("prize", "中奖"),
+        QUESTION("sign", "回答问题积分"),
 
-        UPLOAD_WORK("upload_work", "上传作品");
+        PRIZE("sign", "中奖"),
+
+        UPLOAD_WORK("sign", "上传作品");
 
         private String code;
 

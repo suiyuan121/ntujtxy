@@ -1699,7 +1699,6 @@ a#global-wish.new .icon-img {
 						</a>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

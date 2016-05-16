@@ -1,10 +1,13 @@
 package cn.edu.ntu.jtxy.biz.service.client.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
@@ -22,13 +25,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import cn.edu.ntu.jtxy.biz.service.ResourceService;
 import cn.edu.ntu.jtxy.biz.service.client.WxClient;
 import cn.edu.ntu.jtxy.biz.service.client.model.wx.NewsInfo;
 import cn.edu.ntu.jtxy.biz.service.client.model.wx.WxUserInfo;
+import cn.edu.ntu.jtxy.biz.service.client.result.GetImageResult;
 import cn.edu.ntu.jtxy.biz.service.client.result.QueryNewsResult;
 import cn.edu.ntu.jtxy.core.model.BaseResult;
 import cn.edu.ntu.jtxy.core.model.wx.AppConfig;
 import cn.edu.ntu.jtxy.core.model.wx.RefreshTokenDo;
+import cn.edu.ntu.jtxy.core.repository.ResultCodeEnum;
 import cn.edu.ntu.jtxy.core.repository.wx.RefreshTokenRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.WxAppConfigRepository;
 import cn.edu.ntu.jtxy.util.DateUtil;
@@ -64,6 +70,9 @@ public class WxClientImpl implements WxClient {
     /** 群发微信图文消息 */
     private static String          SEND_NESW_ALL_URL        = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=%s";
 
+    /**  */
+    private static String          GET_PIC_URL              = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=%s";
+
     /** 延长2个小时 */
     public static int              EXPIRES_IN               = 2;
 
@@ -71,6 +80,9 @@ public class WxClientImpl implements WxClient {
 
     /**  */
     public static String           TYPE_NEWS                = "news";
+
+    @Autowired
+    private ResourceService        resourceService;
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
@@ -288,12 +300,14 @@ public class WxClientImpl implements WxClient {
                     String author = temp.optString("author");
                     String digest = temp.optString("digest");
                     String url = temp.optString("url");
+                    String thumb_media_id = temp.optString("thumb_media_id");
 
                     NewsInfo newsInfo = new NewsInfo();
                     newsInfo.setAuthor(author);
                     newsInfo.setDigest(digest);
                     newsInfo.setTitle(title);
                     newsInfo.setUrl(url);
+                    newsInfo.setThumb_media_id(thumb_media_id);
                     newsInfo.setUpdate_time(update_time);
                     newslist.add(newsInfo);
                 }
@@ -448,6 +462,64 @@ public class WxClientImpl implements WxClient {
         } catch (Exception e) {
             logger.error(String.format("群发微信文本结果失败   is_to_all=%s,group_id=%s,content=%s",
                 is_to_all, group_id, content), e);
+            result.setSuccess(false);
+            result.setErrMsg("exception");
+            return result;
+        }
+    }
+
+    @Override
+    public GetImageResult getImage(String thumb_media_id) {
+        logger.info("获取微信图片   thumb_media_id={}", thumb_media_id);
+
+        GetImageResult result = new GetImageResult();
+        if (StringUtils.isBlank(thumb_media_id)) {
+            result.setSuccess(false);
+            result.setCode(ResultCodeEnum.ILLEGAL_ARGUMENT.getCode());
+            return result;
+        }
+        AppConfig appConfig = wxAppConfigRepository.getDefault();
+        if (appConfig == null) {
+            logger.warn("获取app配置失败");
+            result.setSuccess(false);
+            result.setErrMsg("获取app配置失败");
+            return result;
+        }
+        RefreshTokenDo refreshTokenDo = refreshTokenRepository.getLastRecord(appConfig.getAppId());
+        if (refreshTokenDo == null) {
+            logger.warn("获取本地access_token 失败 refreshTokenDo={}", appConfig.getAppId());
+            result.setSuccess(false);
+            result.setErrMsg("获取token失败");
+            return result;
+        }
+
+        JSONObject jsonObj1 = new JSONObject();
+        try {
+            jsonObj1.put("media_id", thumb_media_id);
+
+            HttpPost httpPost = new HttpPost(String.format(GET_PIC_URL,
+                refreshTokenDo.getAccessToken()));
+
+            StringEntity entity = new StringEntity(jsonObj1.toString());
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
+            HttpClient client = new DefaultHttpClient();
+            HttpResponse response = client.execute(httpPost);
+
+            HttpEntity entityRet = response.getEntity();
+            byte ret[] = EntityUtils.toByteArray(entityRet);
+
+            String path = resourceService.getImagePath().getURI().getPath();
+            String name = UUID.randomUUID().toString() + ".png";
+
+            try (FileOutputStream fileOutputStream = new FileOutputStream(new File(path + name));) {
+                fileOutputStream.write(ret);
+            }
+            result.setSuccess(true);
+            result.setImagePath(path + name);
+            return result;
+        } catch (Exception e) {
+            logger.error(String.format("微信获取图片失败  thumb_media_id=%s", thumb_media_id), e);
             result.setSuccess(false);
             result.setErrMsg("exception");
             return result;

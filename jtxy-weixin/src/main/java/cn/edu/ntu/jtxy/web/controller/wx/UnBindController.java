@@ -26,9 +26,9 @@ import cn.edu.ntu.jtxy.web.filter.OperationContex;
 @RequestMapping(value = "unBind.htm")
 public class UnBindController implements SystemConstants {
     /**  */
-    private static final Logger  logger    = LoggerFactory.getLogger(UnBindController.class);
+    private static final Logger  logger      = LoggerFactory.getLogger(UnBindController.class);
 
-    private static final String  page_bind = "bind";
+    private static final String  page_unbind = "unbind";
 
     @Autowired
     private WeiXinUserRepository weiXinUserRepository;
@@ -41,7 +41,8 @@ public class UnBindController implements SystemConstants {
         UserInfo userInfo = OperationContex.getCurrentuserinfo();
         logger.info("解绑openId doGet  userInfo={}", userInfo);
         if (userInfo == null) {
-            return ERROR_PAGE;
+            map.addAttribute("errMsg", "您未登陆！");
+            return page_unbind;
         }
         boolean ret = userInfoRepository.unBindOpenId(userInfo.getOpenId());
         if (!ret) {
@@ -51,6 +52,6 @@ public class UnBindController implements SystemConstants {
         SessionUtil.removeUserInfo(request);
         map.addAttribute("errMsg", "解绑成功!");
         map.addAttribute("openId", userInfo.getOpenId());
-        return page_bind;
+        return page_unbind;
     }
 }

@@ -9,7 +9,27 @@ public class NewsQueryForm extends BaseModel {
 
     private int               currentPage      = 1;
 
+    private int               pageNum;
+
     private String            title;
+
+    private String            type;
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getCurrentPage() {
         return currentPage;
