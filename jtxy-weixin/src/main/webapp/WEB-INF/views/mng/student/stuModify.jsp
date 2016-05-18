@@ -18,7 +18,7 @@
 	href="css/theme-origin/emng-origin.css" />
 <link rel="stylesheet" type="text/css"
 	href="css/theme-origin/public-origin.css" />
-<title>新建学生信息</title>
+<title>修改学生信息</title>
 <style type="text/css">
 nav em {
 	background-position: -60px 0;
@@ -75,7 +75,7 @@ nav em {
 		<em></em>
 		<p>
 			学生管理 ->
-			<span>->新建学生信息</span>
+			<span>->修改学生信息</span>
 		</p>
 	</nav>
 	<div class="btn-area emng-flex">
@@ -84,15 +84,17 @@ nav em {
 	</div>
 	<div class="tab">
 		<form name="addStuFrom" id="addStuFrom" method="post"
-			action="stuAdd.htm">
+			action="stuModify.htm">
 			<ul>
 				<li>
 					<span>
 						<i class="must">*</i>
 						学号:
 					</span>
+					<input type="hidden" id="stuNo" name="stuNo"
+						value="${addStuForm.stuNo}">
 					<input type="text" id="stuNo" name="stuNo" maxlength="32"
-						value="${addStuForm.stuNo}" placeholder="10位数学学号   请勿输入空格等特殊字符" />
+						value="${addStuForm.stuNo}" disabled="disabled" />
 					<label class="error"></label>
 				</li>
 				<li>
@@ -127,14 +129,11 @@ nav em {
 						<i class="must">*</i>
 						性别:
 					</span>
-					<a class="emng-select" id="genderA">
-						<strong class="emng-curselect"></strong>
-						<select onchange="change($(this))" id="gender" name="gender"
-							class="loc">
-							<option value="M" selected="selected">男</option>
-							<option value="F">女</option>
-						</select>
-					</a>
+					<input type="hidden" id="gender" name="gender"
+						value="${addStuForm.gender}">
+					<input type="text" id="sex" name="sex" maxlength="32"
+						value="${(addStuForm.gender eq 'M') ? '男' : '女'}"
+						disabled="disabled" />
 					<label class="error" id="stuError"></label>
 				</li>
 				<li>
@@ -186,10 +185,6 @@ nav em {
 					})) {
 						return false;
 					} else {
-						if ($('#gender').find('option').length <= 1) {
-							$('#stuError').html("请选择性别!");
-							return false;
-						}
 						$('#addStuFrom').submit();
 					}
 				});
@@ -230,11 +225,6 @@ nav em {
 						requiredMsg : '家庭地址不能为空'
 					})
 				});
-
-				if ($('#gender').find('option').length < 1) {
-					$('#stuError').html("请选择性别!");
-					return;
-				}
 
 				$('#addStuFrom').enterSub($('#go-submit'));
 			})();

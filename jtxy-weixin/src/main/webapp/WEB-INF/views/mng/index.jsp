@@ -11,8 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>南通大学交通学院微信平台</title>
 <link rel="shortcut icon" href="images/favicon.ico" />
-<link rel="stylesheet" type="text/css"
-	href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
 <style type="text/css">
 html,body {
 	width: 100%;
@@ -143,13 +142,26 @@ img {
 			<form action="login.htm" name="loginForm" id="loginForm"
 				method="post">
 				<ul>
-					<li><span>用户名:</span> <input type="text" name="logonName"
-						id="userName" class="l-text" maxlength="32" value=""
-						placeholder="管理员账号,手机号" /></li>
-					<li><span>密&nbsp;&nbsp;&nbsp;码:</span> <input type="password"
-						name="password" id="userPassword" class="l-text" value="" /></li>
-					<li><label class="errorTips" id="errorTips">${errorTips}</label>
-						<button type="button" id="toLogin">登 录</button></li>
+					<li>
+						<span>用户名:</span>
+						<input type="text" name="logonName" id="userName" class="l-text"
+							maxlength="32" value="" placeholder="管理员账号,手机号" />
+					</li>
+					<li>
+						<span>密&nbsp;&nbsp;&nbsp;码:</span>
+						<input type="password" name="password" id="userPassword"
+							class="l-text" value="" />
+					</li>
+					<li>
+						<span>验证码:</span>
+						<input type="text" name="verifyCode" id="validCode" class="l-text"
+							value="" />
+						<img id="validateImg" src="vc.htm" />
+					</li>
+					<li>
+						<label class="errorTips" id="errorTips">${errorTips}</label>
+						<button type="button" id="toLogin">登 录</button>
+					</li>
 				</ul>
 			</form>
 		</div>
@@ -158,29 +170,29 @@ img {
 	<script src="js/vertifycate.min.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script type="text/javascript">
-        $(document).ready(function() {
-            $('#toLogin').click(function() {
-                if (!$('#userName').validator({
-                    errContainer : $('#errorTips'),
-                    required : true,
-                    requiredMsg : '用户名不能为空'
-                }) || !$('#userPassword').validator({
-                    errContainer : $('#errorTips'),
-                    required : true,
-                    requiredMsg : '密码不能为空'
-                }) || !$('#validCode').validator({
-                    errContainer : $('#errorTips'),
-                    required : true,
-                    requiredMsg : '验证码不能为空'
-                })) {
-                    return false;
-                } else {
-                    $('#loginForm').submit();
-                }
-            });
+		$(document).ready(function() {
+			$('#toLogin').click(function() {
+				if (!$('#userName').validator({
+					errContainer : $('#errorTips'),
+					required : true,
+					requiredMsg : '用户名不能为空'
+				}) || !$('#userPassword').validator({
+					errContainer : $('#errorTips'),
+					required : true,
+					requiredMsg : '密码不能为空'
+				}) || !$('#validCode').validator({
+					errContainer : $('#errorTips'),
+					required : true,
+					requiredMsg : '验证码不能为空'
+				})) {
+					return false;
+				} else {
+					$('#loginForm').submit();
+				}
+			});
 
-            $('#loginForm').enterSub($('#toLogin'));
-        });
-    </script>
+			$('#loginForm').enterSub($('#toLogin'));
+		});
+	</script>
 </body>
 </html>

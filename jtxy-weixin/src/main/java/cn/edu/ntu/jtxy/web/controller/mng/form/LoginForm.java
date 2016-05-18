@@ -16,6 +16,16 @@ public class LoginForm extends BaseModel {
 
     private String            password;
 
+    private String            verifyCode;
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
     /**
      * Getter method for property <tt>logonName</tt>.
      * 

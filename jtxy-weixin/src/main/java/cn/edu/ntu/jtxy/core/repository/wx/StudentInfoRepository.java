@@ -33,4 +33,11 @@ public interface StudentInfoRepository {
      */
     public PageList<StudentInfoDo> pageQuery(StuInfoPageCond cond);
 
+    /**
+     * 
+     * @param studentInfoDo
+     * @return
+     */
+    public boolean updateByStuNo(StudentInfoDo studentInfoDo);
+
 }

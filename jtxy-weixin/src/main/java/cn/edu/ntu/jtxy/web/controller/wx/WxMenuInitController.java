@@ -170,7 +170,7 @@ public class WxMenuInitController {
                 JSONObject sub_button_4 = new JSONObject();
                 {
                     sub_button_4.put("type", "view");
-                    sub_button_4.put("name", "点赞留言");
+                    sub_button_4.put("name", "点赞作品");
                     sub_button_4.put("url", serverUrl + "/worksList.htm?scopeType=full");
                 }
                 JSONObject sub_button_5 = new JSONObject();

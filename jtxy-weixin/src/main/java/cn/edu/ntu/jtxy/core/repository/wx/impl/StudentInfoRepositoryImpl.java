@@ -1,5 +1,6 @@
 package cn.edu.ntu.jtxy.core.repository.wx.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,14 @@ public class StudentInfoRepositoryImpl implements StudentInfoRepository {
         }
         return studentInfoDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(), cond.getStuNo(),
             cond.getIdNo(), cond.getStuName(), cond.getPhoneNo());
+    }
+
+    @Override
+    public boolean updateByStuNo(StudentInfoDo studentInfoDo) {
+        logger.info("更新学生信息  studentInfoDo={} ", studentInfoDo);
+        if (studentInfoDo == null || StringUtils.isEmpty(studentInfoDo.getStuNo())) {
+            return false;
+        }
+        return studentInfoDao.updateByStuNo(studentInfoDo);
     }
 }

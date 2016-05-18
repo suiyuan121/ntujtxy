@@ -21,6 +21,7 @@ import cn.edu.ntu.jtxy.core.repository.wx.UserInfoRepository;
 import cn.edu.ntu.jtxy.core.repository.wx.cond.UserInfoCond;
 import cn.edu.ntu.jtxy.util.PwdUtils;
 import cn.edu.ntu.jtxy.util.SessionUtil;
+import cn.edu.ntu.jtxy.web.SystemConstants;
 import cn.edu.ntu.jtxy.web.controller.mng.form.LoginForm;
 
 /**
@@ -30,7 +31,7 @@ import cn.edu.ntu.jtxy.web.controller.mng.form.LoginForm;
  */
 @Controller
 @RequestMapping(value = "login.htm")
-public class LoginController {
+public class LoginController implements SystemConstants {
 
     private static final Logger logger     = LoggerFactory.getLogger(LoginController.class);
 
@@ -53,6 +54,15 @@ public class LoginController {
 
         String userName = loginForm.getLogonName();
         String password = loginForm.getPassword();
+        String verifyCode = loginForm.getVerifyCode();
+
+        String sessionVerifyCode = (String) SessionUtil.get(request, VERTFY_CODE);
+        logger.info("正确的验证码是    sessionVerifyCode={}", sessionVerifyCode);
+        if (!StringUtils.equalsIgnoreCase(verifyCode, sessionVerifyCode)) {
+            modelMap.addAttribute("errorTips", "验证码错误");
+            modelMap.addAttribute("loginForm", loginForm);
+            return page_index;
+        }
 
         UserInfoCond userInfoCond = new UserInfoCond();
         userInfoCond.setStuNo(userName);
@@ -61,6 +71,7 @@ public class LoginController {
         if (CollectionUtils.isEmpty(list)) {
             logger.info("用户登录 失败 用户不存在  userInfoCond={} ", userInfoCond);
             modelMap.addAttribute("errorTips", "用户名不存在");
+            modelMap.addAttribute("loginForm", loginForm);
             return page_index;
         }
         UserInfoDo userInfoDo = list.get(0);
@@ -69,6 +80,7 @@ public class LoginController {
                 UserInfoDo.UserTypeEnum.ADMIN.getCode())) {
             logger.info("用户登录 失败  用户状态不可用或此用户非管理员  userInfoDo={} ", userInfoDo);
             modelMap.addAttribute("errorTips", "用户状态不可用或此用户非管理员");
+            modelMap.addAttribute("loginForm", loginForm);
             return page_index;
         }
 
@@ -78,11 +90,11 @@ public class LoginController {
         if (!StringUtils.equals(pwdHash, pwdHashTemp)) {
             logger.info("用户登录 失败  密码错误  userInfoDo={} ", userInfoDo);
             modelMap.addAttribute("errorTips", "用户密码错误");
+            modelMap.addAttribute("loginForm", loginForm);
             return page_index;
         }
         //登录成功
         SessionUtil.setUserInfo(request, UserInfoConvertor.getUserInfo(userInfoDo));
         return page_menu;
     }
-
 }

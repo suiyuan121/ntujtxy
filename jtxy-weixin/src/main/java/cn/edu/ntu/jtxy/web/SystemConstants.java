@@ -29,4 +29,7 @@ public interface SystemConstants {
     public static final String SUCCESS         = "success";
 
     public static final String ERROR           = "error";
+
+    /**  */
+    public static final String VERTFY_CODE     = "verifyCode";
 }

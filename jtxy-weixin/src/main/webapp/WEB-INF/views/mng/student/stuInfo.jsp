@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@page import="cn.edu.ntu.jtxy.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -12,8 +13,10 @@
 <link rel="stylesheet" type="text/css" href="css/reset.css" />
 <link rel="stylesheet" type="text/css" href="css/emng-1.0.0.css" />
 <link rel="stylesheet" type="text/css" href="css/public.css" />
-<link rel="stylesheet" type="text/css" href="css/theme-origin/emng-origin.css" />
-<link rel="stylesheet" type="text/css" href="css/theme-origin/public-origin.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/theme-origin/emng-origin.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/theme-origin/public-origin.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/myPage.css" />
 <title>学生管理</title>
@@ -66,31 +69,38 @@ nav em {
 	</nav>
 	<div class="check-factor-wrapper">
 		<article>查找</article>
-		<form name="queryForm" id="queryForm" method="post" action="stuInfo.htm">
+		<form name="queryForm" id="queryForm" method="post"
+			action="stuInfo.htm">
 			<div class="check-factor-1 emng-flex">
 				<ul class="emng-flex">
 					<li>
-						<input type="hidden" name="currentPage" id="currentPage" value="${queryStuInfoForm.currentPage}" />
+						<input type="hidden" name="currentPage" id="currentPage"
+							value="${queryStuInfoForm.currentPage}" />
 					</li>
 					<li>
 						<span>学号:</span>
-						<input type="text" name="stuNo" class="Trim" id="stuNo" value="${queryStuInfoForm.stuNo}" />
+						<input type="text" name="stuNo" class="Trim" id="stuNo"
+							value="${queryStuInfoForm.stuNo}" />
 					</li>
 					<li>
 						<span>学生姓名:</span>
-						<input type="text" name="stuName" class="Trim" id="stuName" value="${queryStuInfoForm.stuName}" />
+						<input type="text" name="stuName" class="Trim" id="stuName"
+							value="${queryStuInfoForm.stuName}" />
 					</li>
 					<li>
 						<span>手机号:</span>
-						<input type="text" name="idNo" class="Trim" id="idNo" value="${queryStuInfoForm.idNo}" />
+						<input type="text" name="idNo" class="Trim" id="idNo"
+							value="${queryStuInfoForm.idNo}" />
 					</li>
 					<li>
 						<span>身份证:</span>
-						<input type="text" name="phoneNo" class="Trim" id="phoneNo" value="${queryStuInfoForm.phoneNo}">
+						<input type="text" name="phoneNo" class="Trim" id="phoneNo"
+							value="${queryStuInfoForm.phoneNo}">
 					</li>
 				</ul>
 				<div class="check-search-wrapper emng-flex">
-					<button id="person-searchBtn" class="emng-btn btn-bg-blue" type="submit">查找</button>
+					<button id="person-searchBtn" class="emng-btn btn-bg-blue"
+						type="submit">查找</button>
 				</div>
 			</div>
 		</form>
@@ -130,7 +140,7 @@ nav em {
 						<td>${item.phone}</td>
 						<td>${item.address}</td>
 						<td>
-							<a href="stuModify.htm?id=${item.id}" class="emng-editbtn"></a>
+							<a href="stuModify.htm?stuNo=${item.stuNo}" class="emng-editbtn"></a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -138,16 +148,19 @@ nav em {
 		</table>
 	</div>
 </body>
-<script src="js/plugin/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/plugin/jquery-2.1.0.js" type="text/javascript"
+	charset="utf-8"></script>
 <script src="js/plugin/noty.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/plugin/select-changes.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/plugin/vertifycate.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/plugin/select-changes.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="js/plugin/vertifycate.min.js" type="text/javascript"
+	charset="utf-8"></script>
 <script src="js/plugin/Widget.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/plugin/Window.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="js/pagination.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-    $(document).ready(showPageLabel("queryForm", "$pageList"));
+	$(document).ready(showPageLabel("queryForm", "$pageList"));
 </script>
 </html>

@@ -69,4 +69,10 @@ public class StudentInfoDaoImpl extends SqlSessionDaoSupport implements StudentI
 
         return pageList;
     }
+
+    @Override
+    public boolean updateByStuNo(StudentInfoDo studentInfoDo) {
+        logger.info("更新学生信息  studentInfoDo={}", studentInfoDo);
+        return getSqlSession().update(NAMESPACE + ".updateByStuNo", studentInfoDo) == 1;
+    }
 }

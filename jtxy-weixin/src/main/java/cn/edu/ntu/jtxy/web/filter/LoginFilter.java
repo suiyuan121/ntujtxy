@@ -36,7 +36,7 @@ public class LoginFilter implements SystemConstants, Filter {
                                                   "/uploadWorks.htm", "/pointSort.htm",
                                                   "/daliyQuestionShow.htm", "/worksList.htm",
                                                   "/showWorksContent.htm", "/test.htm",
-                                                  "/newsShow.htm");
+                                                  "/newsShow.htm", "/vc.htm");
 
     private static String       error         = "error.htm";
 

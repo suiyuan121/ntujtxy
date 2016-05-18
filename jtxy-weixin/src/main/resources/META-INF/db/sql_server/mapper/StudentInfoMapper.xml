@@ -125,7 +125,16 @@
 		</if>
 		) A
 		where rownumber > #{offset}
-
 	</select>
 
+	<update id="updateByStuNo" parameterType="cn.edu.ntu.jtxy.core.model.wx.StudentInfoDo">
+		update jt_student_info
+		set
+		real_name=#{realName},
+		id_no=#{idNo},
+		phone=#{phone},
+		sex=#{sex},
+		address=#{address}
+		where stu_no=#{stuNo}
+	</update>
 </mapper>

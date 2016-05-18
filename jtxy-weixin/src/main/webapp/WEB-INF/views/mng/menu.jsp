@@ -174,7 +174,7 @@ nav {
 					<span><%=DateUtil.getWebTodayString()%></span>
 				</li>
 				<li id="loginOut">
-					<a href="#">退出</a>
+					<a href="logout.htm">退出</a>
 				</li>
 			</ul>
 		</div>
@@ -189,7 +189,7 @@ nav {
 						<div class="menu-out-header">
 							<span id="homepage"></span>
 							<span>
-								<a href="#" target="myView">首页</a>
+								<a href="https://mp.weixin.qq.com/" target="_blank">微信管后台首页</a>
 							</span>
 						</div>
 					</li>
@@ -203,9 +203,6 @@ nav {
 						<ul class="menu-out-two">
 							<li>
 								<a href="stuInfo.htm" target="myView">学生信息</a>
-							</li>
-							<li>
-								<a href="stuImportBatch.htm" target="myView">批量导入</a>
 							</li>
 						</ul>
 					</li>
@@ -257,19 +254,6 @@ nav {
 							</li>
 						</ul>
 					</li>
-					<!-- 					<li class="menu-out-one"> -->
-					<!-- 						<div class="menu-out-header"> -->
-					<!-- 							<span id="icon-org"></span> -->
-					<!-- 							<span> -->
-					<!-- 								<a>奖品管理</a> -->
-					<!-- 							</span> -->
-					<!-- 						</div> -->
-					<!-- 						<ul class="menu-out-two"> -->
-					<!-- 							<li> -->
-					<!-- 								<a href="prizeInfo.htm" target="myView">查看</a> -->
-					<!-- 							</li> -->
-					<!-- 						</ul> -->
-					<!-- 					</li> -->
 				</ul>
 			</div>
 

@@ -6,7 +6,7 @@
 	<property resource="app.properties" />
 	<!-- 设置属性值，下文引用 -->
 	<property name="saved_days" value="7" />
-	<property name="system_name" value="ntu_jtxy_wx" />
+	<property name="system_name" value="ntujtxy" />
 
 	<!-- ================================================== -->
 	<!-- =================属性定义================================= -->
@@ -183,7 +183,6 @@
 	</appender>
 	<!-- ================================================== -->
 	<!-- ================================================== -->
-
 	<!-- web层 -->
 	<logger name="cn.edu.ntu.jtxy.web" level="${logging_level_default}"
 		additivity="false">

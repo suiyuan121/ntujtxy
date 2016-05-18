@@ -10,6 +10,7 @@ function init(formName) {
 	var totalCount = parseInt($("#totalCount").val());
 	var pageNum = parseInt($("#pageNum").val());
 	var currentPage = parseInt($("#currentPage").val());
+
 	// alert(currentPage)
 
 	var first = firstPage('javascript:gotoPage(' + formName + ',' + 1 + ')');
@@ -18,7 +19,7 @@ function init(formName) {
 			+ (currentPage - 1) + ')', currentPage);
 
 	var next = nextPage('javascript:gotoPage(' + formName + ','
-			+ (currentPage + 1) + ')', currentPage);
+			+ (currentPage + 1) + ')', currentPage, pageNum);
 
 	var last = lastPage('javascript:gotoPage(' + formName + ',' + pageNum + ')');
 
@@ -48,11 +49,20 @@ function firstPage(link) {
 	return first;
 }
 function beforePage(link, currentPage) {
+	// alert(currentPage);
+	if (currentPage == 1) {
+		return '';
+	}
 	var before = '<li class="prev"><a href="' + link
 			+ '"><i class="arrow arrow2"></i>上一页</a></li>';
 	return before;
 }
-function nextPage(link, currentPage) {
+function nextPage(link, currentPage, pageNum) {
+	// alert(currentPage);
+	// alert(pageNum);
+	if (currentPage == pageNum) {
+		return '';
+	}
 	var next = '<li class="next"><a href="' + link
 			+ '">下一页<i class="arrow arrow3"></i></a></li>';
 	return next;

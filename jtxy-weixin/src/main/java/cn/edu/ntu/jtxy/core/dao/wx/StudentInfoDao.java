@@ -36,4 +36,11 @@ public interface StudentInfoDao {
      */
     public PageList<StudentInfoDo> pageQuery(int pageSize, int currentPage, String stuNo,
                                              String idNo, String stuName, String phone);
+
+    /**
+     * 
+     * @param studentInfoDo
+     * @return
+     */
+    public boolean updateByStuNo(StudentInfoDo studentInfoDo);
 }
