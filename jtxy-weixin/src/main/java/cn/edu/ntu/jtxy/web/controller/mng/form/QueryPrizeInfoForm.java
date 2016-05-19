@@ -1,6 +1,7 @@
 package cn.edu.ntu.jtxy.web.controller.mng.form;
 
 import cn.edu.ntu.jtxy.core.model.BaseModel;
+import cn.edu.ntu.jtxy.core.model.wx.PriceRecordDo;
 
 /**
  * 
@@ -16,8 +17,19 @@ public class QueryPrizeInfoForm extends BaseModel {
 
     private String            stuName;
 
+    /** 默认查询一等奖 */
+    private String            type             = PriceRecordDo.PriceTypeEnum.一等奖.getCode();
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     /** 默认第一页 */
-    private int               currentPage      = 1;
+    private int currentPage = 1;
 
     public String getStuNo() {
         return stuNo;

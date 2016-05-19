@@ -16,8 +16,8 @@ import cn.edu.ntu.jtxy.core.repository.wx.pagelist.cond.StuInfoPageCond;
 
 /**
  * 
- * @author {jin.zhang@witontek.com}
- * @version $Id: WeiXinUserRepositoryImpl.java, v 0.1 2016年3月30日 下午1:42:46 {jin.zhang@witontek.com} Exp $
+ * @author zhangjinntu@163.com
+ * @version $Id: StudentInfoRepositoryImpl.java, v 0.1 2016年5月18日 下午8:13:17 zhangjinntu@163.com Exp $
  */
 public class StudentInfoRepositoryImpl implements StudentInfoRepository {
 

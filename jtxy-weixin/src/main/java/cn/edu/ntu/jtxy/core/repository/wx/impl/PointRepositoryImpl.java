@@ -89,6 +89,7 @@ public class PointRepositoryImpl implements PointRepository {
         if (StringUtils.isEmpty(uid)) {
             return 0;
         }
+        logger.info("xxxxxpointDao={}", pointDao);
         return pointDao.getTotalByUid(uid);
     }
 }

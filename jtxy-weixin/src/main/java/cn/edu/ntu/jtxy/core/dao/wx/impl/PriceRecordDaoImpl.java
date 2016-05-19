@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.edu.ntu.jtxy.core.dao.wx.PriceRecordDao;
 import cn.edu.ntu.jtxy.core.model.wx.PriceRecordDo;
+import cn.edu.ntu.jtxy.core.repository.wx.model.PrizeInfo;
 import cn.edu.ntu.jtxy.core.repository.wx.pagelist.PageList;
 
 /**
@@ -62,6 +63,41 @@ public class PriceRecordDaoImpl extends SqlSessionDaoSupport implements PriceRec
         pageList.setTotalCount(totalCount);
 
         return pageList;
+    }
+
+    @Override
+    public PageList<PrizeInfo> pageQuery(int pageSize, int currentPage, String stuName,
+                                         String stuNo, String type) {
+        logger.info("中奖纪录分页查询  pageSize={},currentPage={},stuName={},stuNo={},type={}", pageSize,
+            currentPage, stuName, stuNo, type);
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("stuName", stuName);
+        map.put("stuNo", stuNo);
+        map.put("type", type);
+
+        int totalCount = getSqlSession().selectOne(NAMESPACE + ".pageQueryInfoCount", map);
+
+        int pageNum = totalCount % pageSize > 0 ? (totalCount / pageSize) + 1
+            : (totalCount / pageSize);
+
+        if (currentPage > pageNum) {
+            //当前页大于总页数，重置到首页
+            currentPage = 1;
+        }
+        map.put("pageSize", String.valueOf(pageSize));
+        map.put("offset", String.valueOf((currentPage - 1) * pageSize));
+
+        List<PrizeInfo> list = getSqlSession().selectList(NAMESPACE + ".pageQueryInfo", map);
+        PageList<PrizeInfo> pageList = new PageList<PrizeInfo>();
+        pageList.setResultList(list);
+        pageList.setCurrentPage(currentPage);
+        pageList.setPageNum(pageNum);
+        pageList.setPageSize(pageSize);
+        pageList.setTotalCount(totalCount);
+
+        return pageList;
+
     }
 
 }

@@ -10,17 +10,35 @@
 		<result property="priceLevel" column="price_level" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
-
+	<resultMap id="RM_INFO"
+		type="cn.edu.ntu.jtxy.core.repository.wx.model.PrizeInfo">
+		<result property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="prizeType" column="price_level" />
+		<result property="stuNo" column="stu_no" />
+		<result property="realName" column="real_name" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
 
 	<sql id="allColumns">
 		uid,
 		price_level,
 		create_time
 	</sql>
+
 	<sql id="allColumnsForSelect">
 		id,
 		uid,
 		price_level,
+		create_time
+	</sql>
+
+	<sql id="allColumnsInfoForSelect">
+		id,
+		uid,
+		price_level,
+		stu_no,
+		real_name,
 		create_time
 	</sql>
 
@@ -50,7 +68,7 @@
 		from
 		jt_price_record
 		where 1=1
-		<if test="uid!=null and uid=''">
+		<if test="uid!=null and uid=!''">
 			and uid = #{uid}
 		</if>
 	</select>
@@ -60,12 +78,58 @@
 		<include refid="allColumnsForSelect"></include>
 		from
 		(
-		select row_number() over(order by create_time) as rownumber,*
+		select row_number() over(order by create_time desc) as
+		rownumber,*
 		from
 		jt_price_record
 		where 1=1
-		<if test="uid!=null and uid=''">
+		<if test="uid!=null and uid=!''">
 			and uid = #{uid}
+		</if>
+		) A
+		where rownumber > #{offset}
+	</select>
+
+
+	<select id="pageQueryInfoCount" parameterType="java.util.Map"
+		resultType="int">
+		select count(*)
+		from
+		jt_price_record p left join jt_user_info u on
+		p.uid=u.uid
+		where 1=1
+		<if test="stuNo!=null and stuNo!=''">
+			and stu_no like '%'+#{stuNo}+'%'
+		</if>
+		<if test="stuName!=null and stuName!=''">
+			and real_name like '%'+#{stuName}+'%'
+		</if>
+		<if test="type!=null and type!=''">
+			and p.price_level = #{type}
+		</if>
+	</select>
+
+	<select id="pageQueryInfo" parameterType="java.util.Map"
+		resultMap="RM_INFO">
+		select top ${pageSize}
+		<include refid="allColumnsInfoForSelect"></include>
+		from
+		(
+		select row_number() over(order by p.create_time desc) as
+		rownumber,p.*,u.stu_no,u.real_name
+		from
+		jt_price_record p left join
+		jt_user_info u on
+		p.uid=u.uid
+		where 1=1
+		<if test="stuNo!=null and stuNo!=''">
+			and stu_no like '%'+#{stuNo}+'%'
+		</if>
+		<if test="stuName!=null and stuName!=''">
+			and real_name like '%'+#{stuName}+'%'
+		</if>
+		<if test="type!=null and type!=''">
+			and p.price_level = #{type}
 		</if>
 		) A
 		where rownumber > #{offset}

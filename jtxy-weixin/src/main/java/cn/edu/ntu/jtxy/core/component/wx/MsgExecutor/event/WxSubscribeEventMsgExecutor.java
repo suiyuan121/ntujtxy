@@ -23,6 +23,8 @@ public class WxSubscribeEventMsgExecutor extends EventMsgExecutor {
     @Autowired
     private WeiXinUserComponent weiXinUserComponent;
 
+    private static final String hello  = "感谢关注！请点击菜单绑定学号！如出现学号不存在的情况，请务必联系我。微信：18362156503";
+
     @Override
     public WxMsgResult process(Map<String, String> xmlParams) {
         logger.info("微信订阅事件消息处理器   xmlParams={} ", xmlParams);
@@ -33,7 +35,7 @@ public class WxSubscribeEventMsgExecutor extends EventMsgExecutor {
 
         WxMsgResult result = new WxMsgResult();
         result.setWxMsgType(WxMsgTypeEnum.EVENT);
-        result.setContent("感谢关注！");
+        result.setContent(hello);
         return result;
     }
 

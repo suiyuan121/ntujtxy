@@ -1,5 +1,7 @@
 package cn.edu.ntu.jtxy.core.repository.wx.model;
 
+import java.util.Date;
+
 import cn.edu.ntu.jtxy.core.model.BaseModel;
 
 /**
@@ -21,6 +23,16 @@ public class PrizeInfo extends BaseModel {
     private String            stuNo;
 
     private String            realName;
+
+    private Date              createTime;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public long getId() {
         return id;

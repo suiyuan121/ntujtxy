@@ -6,8 +6,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="renderer" content="webkit">
-<meta name="keywords" content="健康吧云管理平台" />
-<meta name="description" content="健康吧,创享智慧健康生活" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>南通大学交通学院微信平台</title>
 <link rel="shortcut icon" href="images/favicon.ico" />

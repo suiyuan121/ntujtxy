@@ -151,7 +151,7 @@ public class WxMenuInitController {
                 JSONObject sub_button_1 = new JSONObject();
                 {
                     sub_button_1.put("type", "view");
-                    sub_button_1.put("name", "幸运大抽奖");
+                    sub_button_1.put("name", "幸运抽奖");
                     sub_button_1.put("url", serverUrl + "/lottery.htm?scopeType=full");
                 }
                 JSONObject sub_button_2 = new JSONObject();
@@ -163,7 +163,7 @@ public class WxMenuInitController {
                 JSONObject sub_button_3 = new JSONObject();
                 {
                     sub_button_3.put("type", "view");
-                    sub_button_3.put("name", "积分榜");
+                    sub_button_3.put("name", "积分排行");
                     sub_button_3.put("url", serverUrl + "/pointSort.htm?scopeType=full");
                 }
 
@@ -194,13 +194,13 @@ public class WxMenuInitController {
                 JSONObject sub_button_1 = new JSONObject();
                 {
                     sub_button_1.put("type", "view");
-                    sub_button_1.put("name", "查看信息");
+                    sub_button_1.put("name", "个人信息");
                     sub_button_1.put("url", serverUrl + "/userInfo.htm?scopeType=full");
                 }
                 JSONObject sub_button_3 = new JSONObject();
                 {
                     sub_button_3.put("type", "view");
-                    sub_button_3.put("name", "解绑");
+                    sub_button_3.put("name", "解绑学号");
                     sub_button_3.put("url", serverUrl + "/unBind.htm?scopeType=full");
                 }
                 JSONObject sub_button_4 = new JSONObject();

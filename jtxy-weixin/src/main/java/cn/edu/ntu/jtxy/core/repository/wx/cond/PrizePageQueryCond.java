@@ -11,6 +11,16 @@ public class PrizePageQueryCond extends BasePageQueryCond {
 
     private String            stuName;
 
+    private String            type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getStuNo() {
         return stuNo;
     }

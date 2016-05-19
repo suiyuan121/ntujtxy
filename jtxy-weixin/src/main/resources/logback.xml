@@ -55,6 +55,9 @@
 	<property name="file_core_repository"
 		value="${log_file_path}/${system_name}-core-repository.log" />
 
+	<property name="file_core_component"
+		value="${log_file_path}/${system_name}-core-component.log" />
+
 	<property name="file_task" value="${log_file_path}/${system_name}-task.log" />
 
 	<property name="file_biz_service"
@@ -153,6 +156,21 @@
 		</encoder>
 	</appender>
 
+	<appender name="JTXY-CORE-COMPONENT-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- <Encoding>UTF-8</Encoding> -->
+		<file>${file_core_component}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file_core_component}${file_post_fix}
+			</fileNamePattern>
+			<maxHistory>${saved_days}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${logging_default_pattern}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
 	<appender name="JTXY-TASK-APPENDER"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<!-- <Encoding>UTF-8</Encoding> -->
@@ -213,6 +231,19 @@
 	<logger name="cn.edu.ntu.jtxy.core.repository" level="${logging_level_default}"
 		additivity="false">
 		<appender-ref ref="JTXY-CORE-REPOSITORY-APPENDER" />
+		<appender-ref ref="COMMON-ERROR" />
+		<if
+			condition='property("run.mode").contains("0") &amp;&amp; property("test.env").contains("dev")'>
+			<then>
+				<appender-ref ref="STDOUT" />
+			</then>
+		</if>
+	</logger>
+
+	<!-- 组件 -->
+	<logger name="cn.edu.ntu.jtxy.core.component" level="${logging_level_default}"
+		additivity="false">
+		<appender-ref ref="JTXY-CORE-COMPONENT-APPENDER" />
 		<appender-ref ref="COMMON-ERROR" />
 		<if
 			condition='property("run.mode").contains("0") &amp;&amp; property("test.env").contains("dev")'>

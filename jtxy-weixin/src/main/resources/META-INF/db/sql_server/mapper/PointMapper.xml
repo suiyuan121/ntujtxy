@@ -88,9 +88,9 @@
 		where uid=#{uid} and point_type=#{type}
 	</select>
 
-	<select id="getTotalByUid" resultType="int" parameterType="java.util.Map">
+	<select id="getTotalByUid" resultType="int">
 		select
-		SUM(point_amout) from
+		COALESCE(SUM(point_amout),0) from
 		jt_point
 		where uid=#{uid}
 	</select>

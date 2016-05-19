@@ -254,6 +254,19 @@ nav {
 							</li>
 						</ul>
 					</li>
+					<li class="menu-out-one">
+						<div class="menu-out-header">
+							<span id="icon-org"></span>
+							<span>
+								<a>奖品管理</a>
+							</span>
+						</div>
+						<ul class="menu-out-two">
+							<li>
+								<a href="prizeInfo.htm" target="myView">查看</a>
+							</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 

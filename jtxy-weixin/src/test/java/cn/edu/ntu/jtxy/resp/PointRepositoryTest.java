@@ -28,8 +28,11 @@ public class PointRepositoryTest extends BaseTest {
 
     @Test
     public void test_getAll() {
+
         PointRepository resp = getContext().getBean(PointRepository.class);
-        long ret = resp.getTotalByUid("103040000000017");
+        logger.info("bbbbbbbbbbb");
+        logger.info("resp={}", resp == null);
+        long ret = resp.getTotalByUid("103040000000022");
         logger.info("xxxxxxlist={}", ret);
     }
 }

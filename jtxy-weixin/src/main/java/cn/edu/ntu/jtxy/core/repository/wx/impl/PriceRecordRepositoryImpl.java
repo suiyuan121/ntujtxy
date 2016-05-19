@@ -57,10 +57,17 @@ public class PriceRecordRepositoryImpl implements PriceRecordRepository {
         return priceRecordDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(), cond.getUid());
     }
 
+    /** 
+     * @see cn.edu.ntu.jtxy.core.repository.wx.PriceRecordRepository#pageQuery(cn.edu.ntu.jtxy.core.repository.wx.cond.PrizePageQueryCond)
+     */
     @Override
     public PageList<PrizeInfo> pageQuery(PrizePageQueryCond cond) {
-        logger.info("奖品纪录分页");
-        
-        return null;
+        logger.info("奖品纪录分页  cond={}", cond);
+        if (cond == null) {
+            return null;
+        }
+        return priceRecordDao.pageQuery(cond.getPageSize(), cond.getCurrentPage(),
+            cond.getStuName(), cond.getStuNo(), cond.getType());
+
     }
 }
