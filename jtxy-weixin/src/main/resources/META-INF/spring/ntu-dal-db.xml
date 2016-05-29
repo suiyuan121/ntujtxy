@@ -9,7 +9,7 @@
 	default-autowire="byName">
 
 
-	<!-- C3P0 configuration -->
+	<!-- C3P0 configuration 通过spring来管理 -->
 	<bean id="xdataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}" />

@@ -31,7 +31,7 @@ h2 {
 }
 
 .width100 img {
-	height: 250px
+	height: 500px
 }
 </style>
 </head>

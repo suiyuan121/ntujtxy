@@ -1,5 +1,7 @@
 package cn.edu.ntu.jtxy.util;
 
+import java.lang.reflect.Array;
+
 import javax.ws.rs.core.MediaType;
 
 import org.apache.http.HttpEntity;
@@ -81,4 +83,5 @@ public class JsonUtilTest {
         String result = EntityUtils.toString(entityRet, SystemConstants.DEFAULT_CHARSET);
         logger.info("用户分组移动请求结果 jsResult={} ", result);
     }
+
 }

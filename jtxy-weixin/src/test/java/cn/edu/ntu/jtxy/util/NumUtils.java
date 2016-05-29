@@ -20,5 +20,11 @@ public class NumUtils {
 
         int pageNums = count % pageSize > 0 ? (count / pageSize) + 1 : (count / pageSize);
         System.out.println(pageNums);
+
+        int sd;
+        float f = -5;
+        float f1 = 0x0687;
+        float f4 = 7.8f;
+
     }
 }
