@@ -10,6 +10,6 @@ public interface ImagesComponent {
      * @param imagesDo
      * @return
      */
-    public BaseResult addImage(ImagesDo imagesDo);
+    public abstract BaseResult addImage(ImagesDo imagesDo);
 
 }
